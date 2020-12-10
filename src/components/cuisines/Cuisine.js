@@ -5,8 +5,25 @@ import { Swiper, SwiperSlide } from "swiper/react";
 const Cuisine = () => {
 	return (
 		<Swiper
+			breakpoints={{
+				320: {
+					slidesPerView: 2,
+				},
+				400: {
+					slidesPerView: 3,
+				},
+				640: {
+					slidesPerView: 3,
+				},
+				// when window width is >= 768px
+				768: {
+					slidesPerView: 4,
+				},
+				1200: {
+					slidesPerView: 7,
+				},
+			}}
 			spaceBetween={30}
-			slidesPerView={7}
 			onSlideChange={() => console.log("slide change")}
 			onSwiper={(swiper) => console.log(swiper)}
 		>

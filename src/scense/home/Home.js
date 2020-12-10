@@ -24,11 +24,16 @@ export default function Home() {
 										</h2>
 										<p className="mb-0">find a location near you</p>
 										<Row form className="align-items-center">
-											<Col lg={8}>
-												<Input placeholder="Békéscsaba Bartók Béla utca 21" />
+											<Col md={8} xs={12}>
+												<Input
+													placeholder="Békéscsaba Bartók Béla utca 21"
+													className="mt-3 mt-md-0"
+												/>
 											</Col>
-											<Col lg={4}>
-												<Button className="btn red-btn px-4 py-2">Find food</Button>
+											<Col md={4} xs={12}>
+												<Button className="btn red-btn px-4 py-2 mt-3 mt-md-0">
+													Find food
+												</Button>
 											</Col>
 										</Row>
 									</div>
@@ -54,83 +59,67 @@ export default function Home() {
 					</Col>
 				</Row>
 				<Row>
-					<Col lg={3}>
-						<div className="d-flex justify-content-between">
-							<div className="order">
-								<Link to="#">
-									<img
-										src="https://cdn.pixabay.com/photo/2018/04/13/17/14/vegetable-skewer-3317060_960_720.jpg"
-										className="img-fluid"
-									/>
-									<div className="p-2">
-										<p className="mb-0 font-weight-bold">Vegan Food</p>
-										<small>Just Vegan, Szeged</small>
-										<Link className="outline-btn btn-block btn mt-3 font-weight-bold">
-											Track order
-										</Link>
-									</div>
-								</Link>
-							</div>
+					<Col lg={3} xs={12} md={6}>
+						<div className="order mb-3 mb-lg-0">
+							<Link to="#">
+								<img
+									src="https://cdn.pixabay.com/photo/2018/04/13/17/14/vegetable-skewer-3317060_960_720.jpg"
+									className="img-fluid"
+								/>
+								<div className="p-2">
+									<p className="mb-0 font-weight-bold">Vegan Food</p>
+									<small>Just Vegan, Szeged</small>
+									<Link className="outline-btn btn-block btn mt-3 font-weight-bold">Track order</Link>
+								</div>
+							</Link>
 						</div>
 					</Col>
-					<Col lg={3}>
-						<div className="d-flex justify-content-between">
-							<div className="order">
-								<Link to="#">
-									<img
-										src="https://cdn.pixabay.com/photo/2019/01/29/18/05/burger-3962997_960_720.jpg"
-										className="img-fluid"
-										alt="Cheeseburger"
-									/>
-									<div className="p-2">
-										<p className="mb-0 font-weight-bold">Cheeseburger</p>
-										<small>Love meet, Szeged</small>
-										<Link className="outline-btn btn-block btn mt-3 font-weight-bold">
-											Track order
-										</Link>
-									</div>
-								</Link>
-							</div>
+					<Col lg={3} xs={12} md={6}>
+						<div className="order mb-3 mb-lg-0">
+							<Link to="#">
+								<img
+									src="https://cdn.pixabay.com/photo/2019/01/29/18/05/burger-3962997_960_720.jpg"
+									className="img-fluid"
+									alt="Cheeseburger"
+								/>
+								<div className="p-2">
+									<p className="mb-0 font-weight-bold">Cheeseburger</p>
+									<small>Love meet, Szeged</small>
+									<Link className="outline-btn btn-block btn mt-3 font-weight-bold">Track order</Link>
+								</div>
+							</Link>
 						</div>
 					</Col>
-					<Col lg={3}>
-						<div className="d-flex justify-content-between">
-							<div className="order">
-								<Link to="#">
-									<img
-										src="https://cdn.pixabay.com/photo/2015/04/10/00/41/food-715542_960_720.jpg"
-										className="img-fluid"
-										alt="Hot pasta"
-									/>
-									<div className="p-2">
-										<p className="mb-0 font-weight-bold">Hot pasta</p>
-										<small>Chinese king, Szeged</small>
-										<Link className="outline-btn btn-block btn mt-3 font-weight-bold">
-											Track order
-										</Link>
-									</div>
-								</Link>
-							</div>
+					<Col lg={3} xs={12} md={6}>
+						<div className="order mb-3 mb-lg-0">
+							<Link to="#">
+								<img
+									src="https://cdn.pixabay.com/photo/2015/04/10/00/41/food-715542_960_720.jpg"
+									className="img-fluid"
+									alt="Hot pasta"
+								/>
+								<div className="p-2">
+									<p className="mb-0 font-weight-bold">Hot pasta</p>
+									<small>Chinese king, Szeged</small>
+									<Link className="outline-btn btn-block btn mt-3 font-weight-bold">Track order</Link>
+								</div>
+							</Link>
 						</div>
 					</Col>
-					<Col lg={3}>
-						<div className="d-flex justify-content-between">
-							<div className="order">
-								<Link to="#">
-									<img
-										src="https://cdn.pixabay.com/photo/2018/10/25/19/15/goulash-3773134_960_720.jpg"
-										className="img-fluid"
-										alt="Goulash soup"
-									/>
-									<div className="p-2">
-										<p className="mb-0 font-weight-bold">Goulash soup</p>
-										<small>Nice restaurent, Szeged</small>
-										<Link className="outline-btn btn-block btn mt-3 font-weight-bold">
-											Track order
-										</Link>
-									</div>
-								</Link>
-							</div>
+					<Col lg={3} xs={12} md={6}>
+						<div className="order mb-3 mb-lg-0">
+							<Link to="#">
+								<img
+									src="https://cdn.pixabay.com/photo/2018/10/25/19/15/goulash-3773134_960_720.jpg"
+									className="img-fluid"
+									alt="Goulash soup"
+								/>
+								<div className="p-2">
+									<p className="mb-0 font-weight-bold">Goulash soup</p>
+									<small>Nice restaurent, Szeged</small>
+									<Link className="outline-btn btn-block btn mt-3 font-weight-bold">Track order</Link>
+								</div>
+							</Link>
 						</div>
 					</Col>
 				</Row>

@@ -1,7 +1,11 @@
 @import "../../styles/colors";
+@import "../../styles/variables";
 
 .footer {
 	padding-top: 100px;
+	@media screen and (max-width: $lg-breakpoint) {
+		padding-top: 20px;
+	}
 	svg,
 	path {
 		color: $red-color;

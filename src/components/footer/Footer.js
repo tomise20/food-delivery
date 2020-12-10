@@ -8,7 +8,7 @@ import { Link } from "react-router-dom";
 
 const Footer = () => {
 	return (
-		<div className="mt-5 footer">
+		<div className="mt-5 footer mb-5 mb-md-0">
 			<div className="footer-info mb-4">
 				<Container fluid>
 					<Row className="justify-content-around">
@@ -34,10 +34,10 @@ const Footer = () => {
 			<div className="footer-copy py-4">
 				<Container fluid>
 					<Row>
-						<Col lg={4}>
+						<Col lg={4} xs={12} className="text-center text-lg-left">
 							<div>Food Delivery</div>
 						</Col>
-						<Col lg={4} className="text-center">
+						<Col lg={4} xs={12} className="text-center">
 							<div>
 								Made with{" "}
 								<Link to="https://github.com/tomise20" target="_blank" className="red-color">
@@ -45,7 +45,7 @@ const Footer = () => {
 								</Link>
 							</div>
 						</Col>
-						<Col lg={4} className="text-right">
+						<Col lg={4} xs={12} className="text-center text-lg-right">
 							<div>&copy; Food Delivery - 2020 | All Right Reserved</div>
 						</Col>
 					</Row>

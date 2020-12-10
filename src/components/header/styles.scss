@@ -1,4 +1,5 @@
 @import "../../styles/colors";
+@import "../../styles/variables";
 
 .sticky-nav {
 	position: sticky !important;
@@ -8,10 +9,30 @@
 }
 #header-search-input {
 	width: 300px;
+	@media screen and (max-width: $lg-breakpoint) {
+		width: 150px;
+	}
 }
 #shopping-cart-icon {
 	font-size: 25px !important;
 	path {
+		color: $red-color;
+	}
+}
+
+/* Mobile menu */
+.mobile-menu {
+	position: fixed;
+	bottom: 0;
+	width: 100%;
+	background-color: #fff;
+	z-index: 99;
+	box-shadow: 0 0 0 1px rgba(67, 41, 163, 0.1), 0 1px 8px 0 rgba(67, 41, 163, 0.1);
+}
+.mobile-menu .active {
+	div,
+	path,
+	svg {
 		color: $red-color;
 	}
 }
