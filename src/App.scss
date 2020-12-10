@@ -22,6 +22,9 @@ a {
 	color: $light-color;
 	border-color: $red-color;
 }
+.text-sm {
+	font-size: 14px;
+}
 .navbar-light .navbar-nav .nav-link {
 	color: $red-color !important;
 }

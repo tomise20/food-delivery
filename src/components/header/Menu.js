@@ -22,7 +22,7 @@ const Menu = () => {
 
 	return (
 		<Navbar color="light" className="sticky-nav bg-white" light expand="md">
-			<NavbarBrand href="/">Food Delivery</NavbarBrand>
+			<Link to="/">Food Delivery</Link>
 			<NavbarToggler onClick={toggle} />
 			<Collapse isOpen={isOpen} navbar>
 				<Nav className="ml-auto align-items-center" navbar>
