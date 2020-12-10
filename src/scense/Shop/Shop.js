@@ -41,7 +41,7 @@ const Shop = () => {
 							<span className="text-success font-weight-bold text-sm">No minimum</span>, Free Delivery
 						</p>
 					</Col>
-					<Col xs={12} md={6} className="text-center">
+					<Col xs={12} md={6} className="text-left text-md-center">
 						<p className="mb-0">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
 					</Col>
 				</Row>

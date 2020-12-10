@@ -2,6 +2,9 @@
 	.store-image {
 		background-image: url("https://cdn.pixabay.com/photo/2015/05/31/11/23/table-791167_960_720.jpg");
 		background-size: 100% auto;
+		background-repeat: no-repeat;
+		background-size: cover;
+		background-position: center;
 		height: 400px;
 		width: 100%;
 		margin-bottom: 15px;

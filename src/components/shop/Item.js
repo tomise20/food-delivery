@@ -7,8 +7,8 @@ import "./styles.scss";
 const Item = () => {
 	return (
 		<div className="item mb-3">
-			<div className="d-flex align-items-stretch justify-content-between">
-				<div className="text-content flex-grow-1 p-3">
+			<div className="d-flex flex-column flex-md-row align-items-stretch justify-content-between">
+				<div className="text-content flex-grow-1 p-3 order-2 order-md-1">
 					<div className="d-flex justify-content-between">
 						<p className="font-weight-bold">Cheseburger with cola</p>
 						<div className="raiting text-right">
@@ -31,7 +31,7 @@ const Item = () => {
 					</div>
 				</div>
 				<div
-					className="image"
+					className="image order-1 order-md-2"
 					style={{
 						backgroundImage:
 							"url('https://cdn.pixabay.com/photo/2020/10/22/11/36/hamburger-5675844_960_720.jpg')",

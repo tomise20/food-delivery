@@ -12,19 +12,19 @@ const Footer = () => {
 			<div className="footer-info mb-4">
 				<Container fluid>
 					<Row className="justify-content-around">
-						<Col lg={2} className="text-center">
+						<Col xs={6} lg={2} className="text-center">
 							<FontAwesomeIcon icon={faCreditCard} size="2x" />
 							<p className="font-weight-light mt-3">100% Paymnent scured</p>
 						</Col>
-						<Col lg={2} className="text-center">
+						<Col xs={6} lg={2} className="text-center">
 							<FontAwesomeIcon icon={faTruck} size="2x" />
 							<p className="font-weight-light mt-3">Fast delivery</p>
 						</Col>
-						<Col lg={2} className="text-center">
+						<Col xs={6} lg={2} className="text-center">
 							<FontAwesomeIcon icon={faComments} size="2x" />
 							<p className="font-weight-light mt-3">24/7 Support</p>
 						</Col>
-						<Col lg={2} className="text-center">
+						<Col xs={6} lg={2} className="text-center">
 							<FontAwesomeIcon icon={faMobileAlt} size="2x" />
 							<p className="font-weight-light mt-3">Mobile app ready</p>
 						</Col>
