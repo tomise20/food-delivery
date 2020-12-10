@@ -5,6 +5,7 @@ import Header from "./components/header/Header";
 import Footer from "./components/footer/Footer";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.scss";
+import Shop from "./scense/Shop/Shop";
 
 export default function App() {
 	return (
@@ -12,6 +13,9 @@ export default function App() {
 			<Router>
 				<Header />
 				<Switch>
+					<Route path="/shop">
+						<Shop />
+					</Route>
 					<Route path="/">
 						<Home />
 					</Route>
