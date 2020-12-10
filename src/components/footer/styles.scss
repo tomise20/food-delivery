@@ -1,0 +1,23 @@
+@import "../../styles/colors";
+
+.footer {
+	padding-top: 100px;
+	svg,
+	path {
+		color: $red-color;
+	}
+	.icon-wrapper {
+		width: 40px;
+		height: 40px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		color: #ada3a3;
+		transition: 0.3s;
+		text-decoration: none;
+	}
+	.footer-copy {
+		border-top: 1px solid rgba(67, 41, 163, 0.2);
+		font-size: 14px;
+	}
+}

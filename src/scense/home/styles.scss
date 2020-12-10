@@ -1,0 +1,93 @@
+@import "../../styles/colors";
+
+#intro-image {
+	width: 100%;
+	height: 550px;
+	object-fit: cover;
+	object-position: center;
+}
+.intro-content {
+	position: absolute;
+	left: 0;
+	top: 50%;
+	transform: translateY(-50%);
+	-ms-transform: translateY(-50%);
+	background-color: $light-color;
+	border-radius: 7px;
+	padding: 15px;
+}
+.cuisine-item img {
+	width: 125px;
+	height: 125px;
+	border-radius: 50%;
+	object-fit: cover;
+}
+.order {
+	box-shadow: 0 0 0 1px rgba(67, 41, 163, 0.08), 0 1px 5px 0 rgba(67, 41, 163, 0.08);
+	border-radius: 4px;
+	&:hover {
+		box-shadow: 0 0 0 1px rgba(255, 0, 24, 0.17), 0 1px 5px 0 rgba(255, 0, 24, 0.12);
+	}
+	img {
+		width: 100%;
+		height: 100px;
+		object-fit: cover;
+		object-position: center;
+	}
+}
+.banner-wrapper {
+	img {
+		width: 100%;
+		height: 100px;
+		object-fit: cover;
+		object-position: center;
+	}
+	.text {
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+	}
+}
+.top-rated {
+	overflow: hidden;
+	&:hover {
+		cursor: pointer;
+		img {
+			transform: scale(1.2);
+		}
+	}
+	img {
+		width: 100%;
+		height: 300px;
+		object-fit: cover;
+		object-position: center;
+		transition: transform 0.5s;
+	}
+	.my-badge.bottom {
+		position: absolute;
+		left: 15px;
+		bottom: 15px;
+		&:hover {
+			background-color: $red-color;
+			color: $light-color;
+		}
+	}
+}
+.right-product-wrapper {
+	position: absolute;
+	top: 0;
+	height: 100%;
+	bottom: 0;
+	overflow: hidden;
+	padding-bottom: 20px;
+	right: 15px;
+	left: 15px;
+	.popular-right-image {
+		height: 100%;
+		width: 100%;
+		max-width: 100%;
+		object-fit: cover;
+		object-position: center;
+	}
+}

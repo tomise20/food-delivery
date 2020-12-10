@@ -1,3 +1,17 @@
+@import "../../styles/colors";
+
+.sticky-nav {
+	position: sticky !important;
+	top: 0 !important;
+	z-index: 99 !important;
+	box-shadow: 0 0 0 1px rgba(67, 41, 163, 0.1), 0 1px 8px 0 rgba(67, 41, 163, 0.1);
+}
 #header-search-input {
 	width: 300px;
+}
+#shopping-cart-icon {
+	font-size: 25px !important;
+	path {
+		color: $red-color;
+	}
 }

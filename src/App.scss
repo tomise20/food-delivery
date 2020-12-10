@@ -2,11 +2,15 @@
 @import "styles/variables";
 @import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,300;0,400;0,600;1,400&display=swap");
 
+/* Global css */
 * {
 	font-family: "Poppins", sans-serif;
 	color: $dark-color;
 }
-
+a {
+	text-decoration: none !important;
+	color: inherit;
+}
 .red-color {
 	color: $red-color !important;
 }
@@ -18,7 +22,6 @@
 	color: $light-color;
 	border-color: $red-color;
 }
-
 .navbar-light .navbar-nav .nav-link {
 	color: $red-color !important;
 }
@@ -29,4 +32,20 @@
 	right: 0;
 	transform: translate(0%, -50%);
 	z-index: 1;
+}
+.outline-btn {
+	background-color: transparent;
+	color: $red-color;
+	border: 1px solid rgba(67, 41, 163, 0.2);
+	font-size: 15px;
+	&:hover {
+		color: $red-color;
+		border-color: $red-color !important;
+	}
+}
+.my-badge {
+	background-color: rgba(255, 255, 255, 0.5);
+	padding: 10px 15px;
+	border-radius: 7px;
+	font-size: 18px;
 }

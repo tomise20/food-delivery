@@ -2,6 +2,7 @@ import React, { Fragment } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Home from "./scense/home/Home";
 import Header from "./components/header/Header";
+import Footer from "./components/footer/Footer";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.scss";
 
@@ -15,6 +16,7 @@ export default function App() {
 						<Home />
 					</Route>
 				</Switch>
+				<Footer />
 			</Router>
 		</Fragment>
 	);
