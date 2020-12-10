@@ -28,7 +28,7 @@ const Cuisine = () => {
 			onSwiper={(swiper) => console.log(swiper)}
 		>
 			<SwiperSlide>
-				<Link to="#">
+				<Link to="/shop">
 					<div className="cuisine-item text-center">
 						<img
 							src="https://cdn.pixabay.com/photo/2017/12/09/08/18/pizza-3007395_960_720.jpg"
