@@ -9,9 +9,7 @@ import List from "../../components/shop/List";
 const Shop = () => {
 	return (
 		<div className="store">
-			<Container fluid>
-				<div className="store-image"></div>
-			</Container>
+			<div className="store-image"></div>
 			<Container>
 				<Row>
 					<Col xs={12}>
