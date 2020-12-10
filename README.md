@@ -1,6 +1,6 @@
 # Food Delivery App
 
-## The page is in progress.
+** The page is in progress. **
 
 This is a reference work. Used technologies: React, Html, Scss, reactstrap.
 
