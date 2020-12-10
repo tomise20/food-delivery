@@ -1,0 +1,32 @@
+@import "styles/colors";
+@import "styles/variables";
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,300;0,400;0,600;1,400&display=swap");
+
+* {
+	font-family: "Poppins", sans-serif;
+	color: $dark-color;
+}
+
+.red-color {
+	color: $red-color !important;
+}
+.dark-color {
+	color: $dark-color;
+}
+.red-btn {
+	background-color: $red-color !important;
+	color: $light-color;
+	border-color: $red-color;
+}
+
+.navbar-light .navbar-nav .nav-link {
+	color: $red-color !important;
+}
+.transform-center {
+	position: absolute;
+	top: 50%;
+	left: 0;
+	right: 0;
+	transform: translate(0%, -50%);
+	z-index: 1;
+}
