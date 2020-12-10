@@ -1,0 +1,26 @@
+{
+  "files": {
+    "main.css": "/food-delivery/static/css/main.db903662.chunk.css",
+    "main.js": "/food-delivery/static/js/main.b61fd9ff.chunk.js",
+    "main.js.map": "/food-delivery/static/js/main.b61fd9ff.chunk.js.map",
+    "runtime-main.js": "/food-delivery/static/js/runtime-main.25d75478.js",
+    "runtime-main.js.map": "/food-delivery/static/js/runtime-main.25d75478.js.map",
+    "static/css/2.11ad250d.chunk.css": "/food-delivery/static/css/2.11ad250d.chunk.css",
+    "static/js/2.48292e8d.chunk.js": "/food-delivery/static/js/2.48292e8d.chunk.js",
+    "static/js/2.48292e8d.chunk.js.map": "/food-delivery/static/js/2.48292e8d.chunk.js.map",
+    "static/js/3.474ab953.chunk.js": "/food-delivery/static/js/3.474ab953.chunk.js",
+    "static/js/3.474ab953.chunk.js.map": "/food-delivery/static/js/3.474ab953.chunk.js.map",
+    "index.html": "/food-delivery/index.html",
+    "static/css/2.11ad250d.chunk.css.map": "/food-delivery/static/css/2.11ad250d.chunk.css.map",
+    "static/css/main.db903662.chunk.css.map": "/food-delivery/static/css/main.db903662.chunk.css.map",
+    "static/js/2.48292e8d.chunk.js.LICENSE.txt": "/food-delivery/static/js/2.48292e8d.chunk.js.LICENSE.txt",
+    "static/media/intro-image.8f92d06d.jpg": "/food-delivery/static/media/intro-image.8f92d06d.jpg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.25d75478.js",
+    "static/css/2.11ad250d.chunk.css",
+    "static/js/2.48292e8d.chunk.js",
+    "static/css/main.db903662.chunk.css",
+    "static/js/main.b61fd9ff.chunk.js"
+  ]
+}
