@@ -1,12 +1,31 @@
-import React from "react";
-import { Container, Row, Col } from "reactstrap";
+import React, { useState } from "react";
+import {
+	Container,
+	Row,
+	Col,
+	Button,
+	Modal,
+	ModalHeader,
+	ModalBody,
+	ModalFooter,
+	InputGroup,
+	InputGroupAddon,
+	InputGroupText,
+	Input,
+} from "reactstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faStar } from "@fortawesome/free-solid-svg-icons";
+import { faStar, faMapMarkerAlt, faPhone, faEnvelope } from "@fortawesome/free-solid-svg-icons";
+import List from "../../components/shop/List";
+import Cart from "../../components/cart/Cart";
+import Coupon from "../../components/shop/Coupon";
 
 import "./styles.scss";
-import List from "../../components/shop/List";
 
 const Shop = () => {
+	const [modal, setModal] = useState(false);
+
+	const toggle = () => setModal(!modal);
+
 	return (
 		<div className="store">
 			<div className="store-image"></div>
@@ -14,7 +33,7 @@ const Shop = () => {
 				<Row>
 					<Col xs={12}>
 						<div className="font-weight-bold dark-color mb-2 title">Just Burger&Burger</div>
-						<div className="h6">6700 Szeged Szivárvány u. 52</div>
+						<div className="h6">6700 Szeged Példa utca 22.</div>
 						<div className="d-flex">
 							<div className="stars mr-2">
 								<FontAwesomeIcon icon={faStar} className="mr-1" />
@@ -44,10 +63,12 @@ const Shop = () => {
 					</Col>
 				</Row>
 			</Container>
-			<hr />
-			<Container fluid className="mt-5">
+			<hr className="mb-0" />
+			<Container fluid className="pt-5 pb-4 main">
 				<Row>
-					<Col lg={3}></Col>
+					<Col lg={12} xl={3}>
+						<Coupon />
+					</Col>
 					<Col lg={6}>
 						<div className="banner position-relative mb-4">
 							<img
@@ -63,11 +84,120 @@ const Shop = () => {
 							</div>
 						</div>
 						<h2 className="font-weight-bold mb-3">Most popular</h2>
-						<List />
+						<List openModal={toggle} />
 					</Col>
-					<Col lg={3}></Col>
+					<Col lg={6} xl={3}>
+						<Cart />
+					</Col>
 				</Row>
 			</Container>
+			<Container className="py-5 store-info">
+				<Row>
+					<Col lg={6}>
+						<div className="store-name font-weight-bold dark-color mb-3">Just Burger&Burger</div>
+						<p className="tags red-color font-weight-light text-sm mb-1">
+							Hungarian, Hamburgers, Coffee & Tea
+						</p>
+						<p className="dark-color font-weight-light">
+							Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam eget ullamcorper libero. Ut
+							ac interdum nunc, eget tempor mauris. Nulla auctor ultrices ultricies.
+						</p>
+						<div className="contact d-flex flex-column mt-4">
+							<div className="d-flex align-items-center mb-3">
+								<div className="icon-wrapper">
+									<FontAwesomeIcon icon={faMapMarkerAlt} className="mr-2" />
+								</div>
+								<div className="text-sm dark-color">6700 Szeged Példa utca 22.</div>
+							</div>
+							<div className="d-flex align-items-center mb-3">
+								<div className="icon-wrapper">
+									<FontAwesomeIcon icon={faPhone} className="mr-2" />
+								</div>
+								<div className="text-sm dark-color">
+									<a href="tel:+36303352266">+36 (30) 335-22-66</a>
+								</div>
+							</div>
+							<div className="d-flex align-items-center mb-3">
+								<div className="icon-wrapper">
+									<FontAwesomeIcon icon={faEnvelope} className="mr-2" />
+								</div>
+								<div className="text-sm dark-color">
+									<a href="mailto:vira.tamas97@gmail.com">vira.tamas97@gmail.com</a>
+								</div>
+							</div>
+						</div>
+					</Col>
+					<Col lg={6}>
+						<div className="open">
+							<div className="title text-black-50 font-weight-bold p-2 mb-3">Hours</div>
+							<div className="day dark-color d-flex justify-content-between mb-3">
+								<div>Monday</div>
+								<div>Delivery: 7:00 - 22:00</div>
+							</div>
+							<div className="day dark-color d-flex justify-content-between mb-3">
+								<div>Tuesday</div>
+								<div>Delivery: 7:00 - 22:00</div>
+							</div>
+							<div className="day dark-color d-flex justify-content-between mb-3">
+								<div>Wednesday</div>
+								<div>Delivery: 7:00 - 22:00</div>
+							</div>
+							<div className="day dark-color d-flex justify-content-between mb-3">
+								<div>Thursday</div>
+								<div>Delivery: 7:00 - 22:00</div>
+							</div>
+							<div className="day dark-color d-flex justify-content-between mb-3">
+								<div>Friday</div>
+								<div>Delivery: 7:00 - 22:00</div>
+							</div>
+							<div className="day dark-color d-flex justify-content-between mb-3">
+								<div>Saturday</div>
+								<div>closed</div>
+							</div>
+							<div className="day dark-color d-flex justify-content-between mb-3">
+								<div>Sunday</div>
+								<div>closed</div>
+							</div>
+						</div>
+					</Col>
+				</Row>
+			</Container>
+
+			<Modal isOpen={modal} className="modal-lg item-modal" toggle={toggle}>
+				<ModalHeader toggle={toggle} className="p-0">
+					<img
+						src="https://cdn.pixabay.com/photo/2016/05/25/10/43/hamburger-1414422_960_720.jpg"
+						alt="food"
+					/>
+				</ModalHeader>
+				<ModalBody>
+					<div className="name dark-color font-weight-bold mb-1">Cheseburger with cola</div>
+					<h5 className="dark-color mb-3">$8.50</h5>
+					<p className="text-black-50">500-800 Cal.</p>
+					<div className="d-flex align-items-center">
+						<span className="font-weight-bold dark-color mr-3">Quantity</span>
+						<InputGroup className="mb-0">
+							<InputGroupAddon addonType="prepend" className="border-right-0">
+								-
+							</InputGroupAddon>
+							<Input
+								className="border-left-0 border-right-0 text-center"
+								min={0}
+								max={100}
+								type="text"
+								step="1"
+								value="1"
+							/>
+							<InputGroupAddon addonType="append">+</InputGroupAddon>
+						</InputGroup>
+					</div>
+				</ModalBody>
+				<ModalFooter className="justify-content-start">
+					<Button className="add-to-cart" size="sm" onClick={toggle}>
+						Add to cart : $8.50
+					</Button>
+				</ModalFooter>
+			</Modal>
 		</div>
 	);
 };

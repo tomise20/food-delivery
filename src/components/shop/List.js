@@ -1,13 +1,13 @@
 import React from "react";
 import Item from "./Item";
 
-const List = () => {
+const List = (props) => {
 	return (
 		<div>
-			<Item />
-			<Item />
-			<Item />
-			<Item />
+			<Item toggle={props.openModal} />
+			<Item toggle={props.openModal} />
+			<Item toggle={props.openModal} />
+			<Item toggle={props.openModal} />
 		</div>
 	);
 };

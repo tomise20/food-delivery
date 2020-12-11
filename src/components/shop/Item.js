@@ -4,9 +4,9 @@ import { faStar } from "@fortawesome/free-solid-svg-icons";
 
 import "./styles.scss";
 
-const Item = () => {
+const Item = (props) => {
 	return (
-		<div className="item mb-3">
+		<div className="item mb-3" onClick={props.toggle}>
 			<div className="d-flex flex-column flex-md-row align-items-stretch justify-content-between">
 				<div className="text-content flex-grow-1 p-3 order-2 order-md-1">
 					<div className="d-flex justify-content-between">

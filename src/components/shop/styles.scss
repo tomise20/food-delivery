@@ -1,4 +1,5 @@
 @import "../../styles/variables";
+@import "../../styles/colors";
 
 .item {
 	box-shadow: 0 0 0 1px rgba(67, 41, 163, 0.08), 0 1px 5px 0 rgba(67, 41, 163, 0.08);
@@ -22,5 +23,33 @@
 	svg,
 	path {
 		color: #fcb71b;
+	}
+}
+
+/* Coupon */
+.coupon {
+	border: 1px solid rgba(0, 0, 0, 0.125);
+	border-radius: 4px;
+	.image {
+		width: 100%;
+		min-height: 250px;
+		background-image: url(../../images/coupon-image.jpg);
+		background-position: center;
+		background-size: cover;
+		background-repeat: no-repeat;
+	}
+	.title {
+		font-size: 48px;
+	}
+	.subtitle {
+		font-size: 36px;
+	}
+	.coupon-btn {
+		background-color: $red-color;
+		border-color: $red-color;
+		&:hover {
+			background-color: #c30012;
+			border-color: #c30012;
+		}
 	}
 }

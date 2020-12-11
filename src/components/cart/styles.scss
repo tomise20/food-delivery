@@ -1,0 +1,30 @@
+@import "../../styles/colors";
+
+.cart {
+	box-shadow: 0 0 0 1px rgba(67, 41, 163, 0.08), 0 1px 5px 0 rgba(67, 41, 163, 0.08);
+	position: sticky;
+	top: 65px;
+	.order-list {
+		max-height: 400px;
+		overflow-y: auto;
+		.order-item {
+			border-bottom: 1px solid #ccc;
+		}
+		.name {
+			font-size: 14px;
+			white-space: nowrap;
+			text-overflow: ellipsis;
+			overflow: hidden;
+		}
+	}
+	.delete {
+		&:hover {
+			path,
+			svg {
+				transition: color 0.5s;
+				color: $red-color;
+				cursor: pointer;
+			}
+		}
+	}
+}
