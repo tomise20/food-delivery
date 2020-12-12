@@ -7,6 +7,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.scss";
 import Shop from "./scense/Shop/Shop";
 import Snackbar from "./components/snackbar/Snackbar";
+import CartPage from "./scense/cart/CartPage";
 
 export default function App() {
 	return (
@@ -17,6 +18,9 @@ export default function App() {
 				<Switch>
 					<Route path="/shop">
 						<Shop />
+					</Route>
+					<Route path="/cart">
+						<CartPage />
 					</Route>
 					<Route path="/">
 						<Home />
