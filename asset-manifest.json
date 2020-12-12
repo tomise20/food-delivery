@@ -1,26 +1,27 @@
 {
   "files": {
-    "main.css": "/food-delivery/static/css/main.d1b7c725.chunk.css",
-    "main.js": "/food-delivery/static/js/main.038888ab.chunk.js",
-    "main.js.map": "/food-delivery/static/js/main.038888ab.chunk.js.map",
-    "runtime-main.js": "/food-delivery/static/js/runtime-main.e989f1cc.js",
-    "runtime-main.js.map": "/food-delivery/static/js/runtime-main.e989f1cc.js.map",
+    "main.css": "/food-delivery/static/css/main.f78447d9.chunk.css",
+    "main.js": "/food-delivery/static/js/main.25134c46.chunk.js",
+    "main.js.map": "/food-delivery/static/js/main.25134c46.chunk.js.map",
+    "runtime-main.js": "/food-delivery/static/js/runtime-main.0d7490b4.js",
+    "runtime-main.js.map": "/food-delivery/static/js/runtime-main.0d7490b4.js.map",
     "static/css/2.11ad250d.chunk.css": "/food-delivery/static/css/2.11ad250d.chunk.css",
-    "static/js/2.7044117e.chunk.js": "/food-delivery/static/js/2.7044117e.chunk.js",
-    "static/js/2.7044117e.chunk.js.map": "/food-delivery/static/js/2.7044117e.chunk.js.map",
-    "static/js/3.8f39d68f.chunk.js": "/food-delivery/static/js/3.8f39d68f.chunk.js",
-    "static/js/3.8f39d68f.chunk.js.map": "/food-delivery/static/js/3.8f39d68f.chunk.js.map",
+    "static/js/2.2908d54a.chunk.js": "/food-delivery/static/js/2.2908d54a.chunk.js",
+    "static/js/2.2908d54a.chunk.js.map": "/food-delivery/static/js/2.2908d54a.chunk.js.map",
+    "static/js/3.afb0399a.chunk.js": "/food-delivery/static/js/3.afb0399a.chunk.js",
+    "static/js/3.afb0399a.chunk.js.map": "/food-delivery/static/js/3.afb0399a.chunk.js.map",
     "index.html": "/food-delivery/index.html",
     "static/css/2.11ad250d.chunk.css.map": "/food-delivery/static/css/2.11ad250d.chunk.css.map",
-    "static/css/main.d1b7c725.chunk.css.map": "/food-delivery/static/css/main.d1b7c725.chunk.css.map",
-    "static/js/2.7044117e.chunk.js.LICENSE.txt": "/food-delivery/static/js/2.7044117e.chunk.js.LICENSE.txt",
+    "static/css/main.f78447d9.chunk.css.map": "/food-delivery/static/css/main.f78447d9.chunk.css.map",
+    "static/js/2.2908d54a.chunk.js.LICENSE.txt": "/food-delivery/static/js/2.2908d54a.chunk.js.LICENSE.txt",
+    "static/media/styles.scss": "/food-delivery/static/media/coupon-image.ce771f47.jpg",
     "static/media/intro-image.8f92d06d.jpg": "/food-delivery/static/media/intro-image.8f92d06d.jpg"
   },
   "entrypoints": [
-    "static/js/runtime-main.e989f1cc.js",
+    "static/js/runtime-main.0d7490b4.js",
     "static/css/2.11ad250d.chunk.css",
-    "static/js/2.7044117e.chunk.js",
-    "static/css/main.d1b7c725.chunk.css",
-    "static/js/main.038888ab.chunk.js"
+    "static/js/2.2908d54a.chunk.js",
+    "static/css/main.f78447d9.chunk.css",
+    "static/js/main.25134c46.chunk.js"
   ]
 }
