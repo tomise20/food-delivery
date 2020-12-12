@@ -18,7 +18,9 @@ const cartReducer = (state = initialState, action) => {
 		}
 		case DELETE_ITEM: {
 			return {
-				items: state.items.filter((item) => item.id !== action.payload),
+				...state,
+				total: action.payload.total,
+				items: action.payload.items,
 			};
 		}
 		case INCREMENT_ITEM_QUANTITY: {

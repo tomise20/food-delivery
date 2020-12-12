@@ -18,15 +18,28 @@ export const addToCart = (item, list) => {
 	};
 };
 
-export const deleteItem = (id) => {
+export const deleteItem = (id, list) => {
+	let items = list.filter((item) => item.id !== id);
+	let total = 0;
+
+	items.forEach((item) => {
+		total += item.quantity * parseFloat(item.price);
+	});
+
 	return {
 		type: DELETE_ITEM,
-		payload: id,
+		payload: {
+			total,
+			items,
+		},
 	};
 };
 
 export const incrementItemQuantity = (item, list) => {
-	let newList = list.map((data) => (item.id === data.id ? { ...data, quantity: data.quantity + 1 } : data));
+	console.log(item.quantity);
+	let newList = list.map((data) =>
+		item.id === data.id ? { ...data, quantity: data.quantity + item.quantity } : data
+	);
 	let total = 0;
 	newList.forEach((item) => {
 		total += item.quantity * parseFloat(item.price);
