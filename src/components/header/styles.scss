@@ -13,8 +13,18 @@
 		width: 150px;
 	}
 }
+.shopping-cart {
+	&:hover {
+		.float-cart {
+			right: 0;
+		}
+	}
+}
 #shopping-cart-icon {
 	font-size: 25px !important;
+	&:hover {
+		cursor: pointer;
+	}
 	path {
 		color: $red-color;
 	}
@@ -35,4 +45,16 @@
 	svg {
 		color: $red-color;
 	}
+}
+
+.float-cart {
+	position: fixed;
+	top: 60px;
+	right: -350px;
+	width: 350px;
+	height: auto;
+	background-color: $light-color;
+	border-radius: 4px;
+	z-index: 100;
+	transition: right 0.5s;
 }
