@@ -15,15 +15,22 @@ a {
 	color: inherit;
 }
 .red-color {
-	color: $red-color !important;
+	color: $red-color;
+	&:hover {
+		color: #c30012;
+	}
 }
 .dark-color {
 	color: $dark-color;
 }
 .red-btn {
-	background-color: $red-color !important;
+	background-color: $red-color;
 	color: $light-color;
 	border-color: $red-color;
+	&:hover {
+		background-color: #c30012;
+		border-color: #c30012;
+	}
 }
 .text-sm {
 	font-size: 14px;

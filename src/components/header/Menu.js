@@ -22,7 +22,9 @@ const Menu = (props) => {
 	return (
 		<>
 			<Navbar color="light" className="sticky-nav bg-white" light expand="md">
-				<Link to="/">Food Delivery</Link>
+				<Link to="/" className="brand">
+					Food Delivery
+				</Link>
 				<NavbarToggler onClick={toggle} />
 				<Collapse isOpen={isOpen} navbar>
 					<Nav className="ml-auto align-items-center" navbar>
@@ -46,9 +48,9 @@ const Menu = (props) => {
 							</NavLink>
 						</NavItem>
 						<NavItem className="mr-3">
-							<NavLink className="red-color font-weight-bold" to="/login">
+							<Link className="red-color font-weight-bold" to="/login">
 								Sign In
-							</NavLink>
+							</Link>
 						</NavItem>
 						<NavItem
 							className="shopping-cart"

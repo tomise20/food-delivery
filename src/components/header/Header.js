@@ -4,10 +4,10 @@ import Menu from "./Menu";
 import MobileMenu from "./MobileMenu";
 import { connect } from "react-redux";
 import { deleteItem } from "../../redux/cart/actions";
-import Button from "../shared/Button";
 import Item from "../../components/cart/Item";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTimes } from "@fortawesome/free-solid-svg-icons";
+import { Link } from "react-router-dom";
 
 const Header = (props) => {
 	const [windowDimension, setWindowDimension] = useState(null);
@@ -53,9 +53,9 @@ const Header = (props) => {
 					<>
 						<hr className="mb-0" />
 						<div className="py-2 px-4">
-							<Button block small classes="btn btn-success">
+							<Link className="btn btn-success btn-sm btn-block" to="/cart">
 								Proceed to checkout
-							</Button>
+							</Link>
 						</div>
 					</>
 				) : (

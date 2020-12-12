@@ -29,6 +29,11 @@
 		color: $red-color;
 	}
 }
+.brand {
+	&:hover {
+		color: $red-color;
+	}
+}
 .float-cart {
 	position: fixed;
 	top: 60px;
@@ -41,6 +46,9 @@
 	transition: right 0.5s;
 	border-left: 1px solid #cecece;
 	border-bottom: 1px solid #cecece;
+	&:hover {
+		right: 0;
+	}
 	@media screen and (max-width: $lg-breakpoint) {
 		top: 0;
 		right: -80%;
