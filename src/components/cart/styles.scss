@@ -7,23 +7,26 @@
 	.order-list {
 		max-height: 400px;
 		overflow-y: auto;
-		.order-item {
+		.cart-item {
 			border-bottom: 1px solid #ccc;
 		}
 		.name {
 			font-size: 14px;
-			white-space: nowrap;
-			text-overflow: ellipsis;
-			overflow: hidden;
+			width: 240px;
 		}
-	}
-	.delete {
-		&:hover {
-			path,
-			svg {
-				transition: color 0.5s;
-				color: $red-color;
-				cursor: pointer;
+		.quantity {
+			min-width: 30px;
+			flex-basis: 30px;
+			font-size: 14px;
+		}
+		.delete {
+			&:hover {
+				path,
+				svg {
+					transition: color 0.5s;
+					color: $red-color;
+					cursor: pointer;
+				}
 			}
 		}
 	}

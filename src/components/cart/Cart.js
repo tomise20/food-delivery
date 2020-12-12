@@ -3,29 +3,39 @@ import React from "react";
 import "./styles.scss";
 import Item from "./Item";
 import { Link } from "react-router-dom";
+import { connect } from "react-redux";
 
-const Cart = () => {
+const Cart = (props) => {
 	return (
 		<div className="cart">
 			<div className="title px-3 py-2 font-weight-bold">Your Order</div>
 			<hr className="mt-0" />
 			<div className="order-list">
-				<Item />
-				<Item />
-				<Item />
+				{props.items.length > 0 && props.items.map((item) => <Item key={item.id} product={item} />)}
 			</div>
-			<div className="d-flex justify-content-between p-3">
-				<div className="text-black-50 font-weight-bold text-sm">Items subtotal:</div>
-				<div className="text-black-50 font-weight-bold text-sm">$11.20</div>
-			</div>
-			<hr className="mt-0" />
-			<div className="px-3 pb-3">
-				<Link to="/cart" className="cart-btn btn btn-block btn-success btn-sm">
-					Proceed to checkout
-				</Link>
-			</div>
+			{props.items.length > 0 ? (
+				<>
+					<div className="d-flex justify-content-between p-3">
+						<div className="text-black-50 font-weight-bold text-sm">Items subtotal:</div>
+						<div className="text-black-50 font-weight-bold text-sm">${props.total}</div>
+					</div>
+					<hr className="mt-0" />
+					<div className="px-3 pb-3">
+						<Link to="/cart" className="cart-btn btn btn-block btn-success btn-sm">
+							Proceed to checkout
+						</Link>
+					</div>
+				</>
+			) : (
+				<div className="red-color font-weight-bold text-center pb-3">Your cart is empty!</div>
+			)}
 		</div>
 	);
 };
 
-export default Cart;
+const mapStateToProps = (state) => ({
+	items: state.cart.items,
+	total: state.cart.total,
+});
+
+export default connect(mapStateToProps)(Cart);
