@@ -6,12 +6,14 @@ import Footer from "./components/footer/Footer";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.scss";
 import Shop from "./scense/Shop/Shop";
+import Snackbar from "./components/snackbar/Snackbar";
 
 export default function App() {
 	return (
 		<Fragment>
 			<Router>
 				<Header />
+				<Snackbar />
 				<Switch>
 					<Route path="/shop">
 						<Shop />
