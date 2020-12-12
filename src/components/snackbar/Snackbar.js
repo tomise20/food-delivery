@@ -1,13 +1,25 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
+import { connect } from "react-redux";
+import { hideSnackbar } from "../../redux/snackbar/actions";
 
 import "./styles.scss";
 
-const Snackbar = (props) => {
-	const [show, setShow] = useState(true);
+const Snackbar = ({ data, hideSnackbar }) => {
+	useEffect(() => {
+		if (data.show) onHideSnackbar();
+	}, [data.show]);
 
-	useEffect(() => {}, []);
+	const onHideSnackbar = () => {
+		setTimeout(() => {
+			hideSnackbar();
+		}, 2500);
+	};
 
-	return <div>{show && <div className="flash-msg text-center py-2 px-5">Done!</div>}</div>;
+	return <div>{data.show && <div className="flash-msg text-center py-2 px-5">{data && data.text}</div>}</div>;
 };
 
-export default Snackbar;
+const mapStateToProps = (state) => ({
+	data: state.snackbar,
+});
+
+export default connect(mapStateToProps, { hideSnackbar })(Snackbar);
