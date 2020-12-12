@@ -1,9 +1,9 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faHome, faShoppingBag, faUser, faTruck } from "@fortawesome/free-solid-svg-icons";
+import { faHome, faShoppingBag, faUser, faShoppingCart } from "@fortawesome/free-solid-svg-icons";
 
-const MobileMenu = () => {
+const MobileMenu = ({ openCart }) => {
 	return (
 		<div className="mobile-menu pb-1 pt-2 px-2">
 			<div className="d-flex justify-content-between align-items-center">
@@ -19,6 +19,10 @@ const MobileMenu = () => {
 					<FontAwesomeIcon icon={faUser} />
 					<div>Profile</div>
 				</Link>
+			</div>
+
+			<div className="float-cart-icon" onClick={() => openCart(true)}>
+				<FontAwesomeIcon icon={faShoppingCart} />
 			</div>
 		</div>
 	);

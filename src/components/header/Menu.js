@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch, faShoppingBag } from "@fortawesome/free-solid-svg-icons";
@@ -7,7 +6,6 @@ import {
 	Collapse,
 	Navbar,
 	NavbarToggler,
-	NavbarBrand,
 	Nav,
 	NavItem,
 	NavLink,
@@ -16,7 +14,6 @@ import {
 	InputGroupAddon,
 	InputGroupText,
 } from "reactstrap";
-import Item from "../../components/cart/Item";
 
 const Menu = (props) => {
 	const [isOpen, setIsOpen] = useState(false);
@@ -53,16 +50,14 @@ const Menu = (props) => {
 								Sign In
 							</NavLink>
 						</NavItem>
-						<NavItem className="shopping-cart">
+						<NavItem
+							className="shopping-cart"
+							onMouseLeave={() => props.openCart(false)}
+							onMouseEnter={() => props.openCart(true)}
+						>
 							<NavLink to="https://github.com/reactstrap/reactstrap">
 								<FontAwesomeIcon icon={faShoppingBag} id="shopping-cart-icon" />
 							</NavLink>
-							<div className="float-cart">
-								<div className="py-3 font-weight-bold dark-color px-4">Your order</div>
-								<hr className="mt-0" />
-								{props.items.length > 0 &&
-									props.items.map((item) => <Item small key={item.id} product={item} />)}
-							</div>
 						</NavItem>
 					</Nav>
 				</Collapse>
@@ -71,8 +66,4 @@ const Menu = (props) => {
 	);
 };
 
-const mapStateToProps = (state) => ({
-	items: state.cart.items,
-});
-
-export default connect(mapStateToProps)(Menu);
+export default Menu;

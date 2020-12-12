@@ -1,6 +1,8 @@
+@import "../../styles/variables";
+
 .flash-msg {
 	position: fixed;
-	top: 0;
+	bottom: 0;
 	width: 100%;
 	left: 50%;
 	transform: translateX(-50%);
@@ -10,4 +12,9 @@
 	background-color: #03d333;
 	color: #fff;
 	transition: all 0.5s;
+	@media screen and (max-width: $md-breakpoint) {
+		top: 0;
+		bottom: unset;
+		font-size: 16px;
+	}
 }
