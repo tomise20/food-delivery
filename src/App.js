@@ -8,6 +8,7 @@ import "./App.scss";
 import Shop from "./scense/Shop/Shop";
 import Snackbar from "./components/snackbar/Snackbar";
 import CartPage from "./scense/cart/CartPage";
+import Login from "./scense/auth/Login";
 
 export default function App() {
 	return (
@@ -21,6 +22,9 @@ export default function App() {
 					</Route>
 					<Route path="/cart">
 						<CartPage />
+					</Route>
+					<Route path="/login">
+						<Login />
 					</Route>
 					<Route path="/">
 						<Home />
