@@ -51,6 +51,10 @@
 	.name {
 		font-size: 14px;
 		width: 200px;
+		@media screen and (max-width: $md-breakpoint) {
+			width: 65%;
+			font-size: 13px;
+		}
 	}
 	.quantity {
 		min-width: 30px;
