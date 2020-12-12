@@ -1,15 +1,19 @@
 import React from "react";
 import Item from "./Item";
+import { connect } from "react-redux";
 
 const List = (props) => {
 	return (
 		<div>
-			<Item toggle={props.openModal} />
-			<Item toggle={props.openModal} />
-			<Item toggle={props.openModal} />
-			<Item toggle={props.openModal} />
+			{props.items.map((item) => (
+				<Item key={item.id} data={item} toggle={props.openModal} />
+			))}
 		</div>
 	);
 };
 
-export default List;
+const mapStateToProps = (state) => ({
+	items: state.product.products,
+});
+
+export default connect(mapStateToProps)(List);
