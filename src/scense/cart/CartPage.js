@@ -53,7 +53,7 @@ const CartPage = (props) => {
 		});
 	};
 
-	const onHandleCardChange = (e) => {
+	const onHandleCardData = (e) => {
 		setData({
 			...data,
 			card: {
@@ -63,9 +63,23 @@ const CartPage = (props) => {
 		});
 	};
 
-	const onHandleSubmit = () => {
+	const onHandleSubmit = (e) => {
+		e.preventDefault();
 		if (data.payment_option === "credit-card") {
-			props.showSnackbar("Your cart is empty!");
+			if (data.card.number === "") {
+			}
+		} else {
+			setData({
+				payment_option: "credit-card",
+				note: "",
+				promo_code: "",
+				card: {
+					number: "",
+					expires: "",
+					code: "",
+					name: "",
+				},
+			});
 		}
 	};
 
@@ -76,7 +90,7 @@ const CartPage = (props) => {
 		<Container fluid className="mt-5" id="cart-page">
 			<Row>
 				<Col lg={9} className="order-2 order-lg-1">
-					<form onSubmit={onHandleSubmit}>
+					<form onSubmit={(e) => onHandleSubmit(e)}>
 						<div className="cart-wrapper p-4">
 							<Row>
 								<Col lg={6}>
@@ -187,10 +201,13 @@ const CartPage = (props) => {
 														</Label>
 														<Input
 															type="text"
+															required={
+																data.payment_option === "credit-card" ? true : false
+															}
 															name="number"
 															id="card_number"
 															placeholder="1234 5678 1234 5678"
-															onChange={(e) => onHandleCardChange(e)}
+															onChange={(e) => onHandleCardData(e)}
 														/>
 													</FormGroup>
 												</Col>
@@ -204,10 +221,13 @@ const CartPage = (props) => {
 														</Label>
 														<Input
 															type="text"
+															required={
+																data.payment_option === "credit-card" ? true : false
+															}
 															name="expires"
 															id="expires"
 															placeholder="12/22"
-															onChange={(e) => onHandleCardChange(e)}
+															onChange={(e) => onHandleCardData(e)}
 														/>
 													</FormGroup>
 												</Col>
@@ -221,10 +241,13 @@ const CartPage = (props) => {
 														</Label>
 														<Input
 															type="text"
+															required={
+																data.payment_option === "credit-card" ? true : false
+															}
 															name="code"
 															id="card_code"
 															placeholder="123"
-															onChange={(e) => onHandleCardChange(e)}
+															onChange={(e) => onHandleCardData(e)}
 														/>
 													</FormGroup>
 												</Col>
@@ -238,10 +261,13 @@ const CartPage = (props) => {
 														</Label>
 														<Input
 															type="text"
+															required={
+																data.payment_option === "credit-card" ? true : false
+															}
 															name="name"
 															id="card_name"
 															placeholder="Jhon Doe"
-															onChange={(e) => onHandleCardChange(e)}
+															onChange={(e) => onHandleCardData(e)}
 														/>
 													</FormGroup>
 												</Col>
