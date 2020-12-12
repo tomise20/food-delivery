@@ -3,7 +3,8 @@ import React from "react";
 const Button = (props) => {
 	return (
 		<button
-			type="button"
+			disabled={props.disabled}
+			type={props.type ? props.tpye : "button"}
 			onClick={() => props.onclick()}
 			className={`${props.classes} ${props.block ? "btn-block" : ""} ${props.small ? "btn-sm" : ""}`}
 		>
