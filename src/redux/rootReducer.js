@@ -1,10 +1,12 @@
 import { combineReducers } from "redux";
-import todo from "./todo/todoReducer";
-import post from './posts/postReducer';
+import post from "./posts/postReducer";
+import cart from "./cart/cartReducer";
+import product from "./products/productReducer";
 
 const rootReducer = combineReducers({
-	todo: todo,
-	post: post,
+	product,
+	post,
+	cart,
 });
 
 export default rootReducer;
