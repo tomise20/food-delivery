@@ -1,7 +1,31 @@
-import React from "react";
-import { Button, FormGroup, Input, Label } from "reactstrap";
+import React, { useState } from "react";
+import { FormGroup, Input, Label } from "reactstrap";
+import Button from "../shared/Button";
+import { connect } from "react-redux";
+import { showSnackbar } from "../../redux/snackbar/actions";
 
-const Coupon = () => {
+const Coupon = ({ showSnackbar }) => {
+	const [data, setData] = useState({
+		email: "",
+		postcode: "",
+	});
+
+	const handleChange = (e) => {
+		setData({
+			...data,
+			[e.target.name]: e.target.value,
+		});
+	};
+
+	const onSubscribe = () => {
+		showSnackbar("You successfully subscribed!");
+
+		setData({
+			email: "",
+			postcode: "",
+		});
+	};
+
 	return (
 		<div className="coupon mb-3 mb-xk-0">
 			<div className="d-flex flex-column flex-lg-row flex-xl-column">
@@ -16,14 +40,14 @@ const Coupon = () => {
 				<div className="p-3">
 					<FormGroup>
 						<Label>E-mail</Label>
-						<Input type="email" name="email" />
+						<Input type="email" value={data.email} name="email" onChange={(e) => handleChange(e)} />
 					</FormGroup>
 					<FormGroup>
 						<Label>Postcode</Label>
-						<Input type="number" name="postcode" />
+						<Input type="number" value={data.postcode} name="postcode" onChange={(e) => handleChange(e)} />
 					</FormGroup>
 					<FormGroup>
-						<Button type="button" className="btn-block coupon-btn btn-sm">
+						<Button onclick={onSubscribe} small block classes="coupon-btn text-white btn">
 							Save $10 on your first order
 						</Button>
 					</FormGroup>
@@ -38,4 +62,4 @@ const Coupon = () => {
 	);
 };
 
-export default Coupon;
+export default connect(null, { showSnackbar })(Coupon);

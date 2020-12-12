@@ -17,6 +17,7 @@ import { faStar, faMapMarkerAlt, faPhone, faEnvelope } from "@fortawesome/free-s
 import { connect } from "react-redux";
 import { addToCart, incrementItemQuantity } from "../../redux/cart/actions";
 import { modifyItem } from "../../redux/products/actions";
+import { showSnackbar } from "../../redux/snackbar/actions";
 import List from "../../components/shop/List";
 import Cart from "../../components/cart/Cart";
 import Coupon from "../../components/shop/Coupon";
@@ -36,9 +37,13 @@ const Shop = (props) => {
 	const handleAddToCart = () => {
 		if (item.isCart) {
 			props.incrementItemQuantity(item, props.items);
+			props.showSnackbar("You successfully added to cart!");
+			setModal(!modal);
 		} else {
 			props.addToCart(item, props.items);
 			props.modifyItem(item.id, props.products);
+			props.showSnackbar("You successfully added to cart!");
+			setModal(!modal);
 		}
 	};
 
@@ -238,7 +243,7 @@ const Shop = (props) => {
 				</ModalBody>
 				<ModalFooter className="justify-content-start">
 					<Button className="add-to-cart" size="sm" onClick={handleAddToCart}>
-						Add to cart : ${item.price * item.quantity}
+						Add to cart : ${parseFloat(item.price * item.quantity).toFixed(2)}
 					</Button>
 				</ModalFooter>
 			</Modal>
@@ -251,4 +256,4 @@ const mapStateToProps = (state) => ({
 	products: state.product.products,
 });
 
-export default connect(mapStateToProps, { addToCart, incrementItemQuantity, modifyItem })(Shop);
+export default connect(mapStateToProps, { addToCart, incrementItemQuantity, modifyItem, showSnackbar })(Shop);

@@ -27,7 +27,9 @@ const Item = (props) => {
 						<p className="text-black-50 text-sm mb-0">
 							Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod...
 						</p>
-						<h5 className="font-weight-bold text-success mb-0">${props.data.price}</h5>
+						<h5 className="font-weight-bold text-success mb-0">
+							${parseFloat(props.data.price).toFixed(2)}
+						</h5>
 					</div>
 				</div>
 				<div
