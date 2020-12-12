@@ -14,7 +14,7 @@ const Footer = () => {
 					<Row className="justify-content-around">
 						<Col xs={6} lg={2} className="text-center">
 							<FontAwesomeIcon icon={faCreditCard} size="2x" />
-							<p className="font-weight-light mt-3">100% Paymnent scured</p>
+							<p className="font-weight-light mt-3">100% Paymnent secured</p>
 						</Col>
 						<Col xs={6} lg={2} className="text-center">
 							<FontAwesomeIcon icon={faTruck} size="2x" />
@@ -39,7 +39,7 @@ const Footer = () => {
 						</Col>
 						<Col lg={4} xs={12} className="text-center">
 							<div>
-								Made with{" "}
+								Created by{" "}
 								<Link to="https://github.com/tomise20" target="_blank" className="red-color">
 									Vira Tamás
 								</Link>
