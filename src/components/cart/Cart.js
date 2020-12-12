@@ -4,20 +4,30 @@ import "./styles.scss";
 import Item from "./Item";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
+import { deleteItem } from "../../redux/cart/actions";
 
 const Cart = (props) => {
+	const handleDeleteItem = (id) => {
+		props.deleteItem(id, props.items);
+	};
+
 	return (
 		<div className="cart">
 			<div className="title px-3 py-2 font-weight-bold">Your Order</div>
 			<hr className="mt-0" />
 			<div className="order-list">
-				{props.items.length > 0 && props.items.map((item) => <Item key={item.id} product={item} />)}
+				{props.items.length > 0 &&
+					props.items.map((item) => (
+						<Item key={item.id} deleteItemAction={handleDeleteItem} product={item} />
+					))}
 			</div>
 			{props.items.length > 0 ? (
 				<>
 					<div className="d-flex justify-content-between p-3">
 						<div className="text-black-50 font-weight-bold text-sm">Items subtotal:</div>
-						<div className="text-black-50 font-weight-bold text-sm">${props.total}</div>
+						<div className="text-black-50 font-weight-bold text-sm">
+							${parseFloat(props.total).toFixed(2)}
+						</div>
 					</div>
 					<hr className="mt-0" />
 					<div className="px-3 pb-3">
@@ -38,4 +48,4 @@ const mapStateToProps = (state) => ({
 	total: state.cart.total,
 });
 
-export default connect(mapStateToProps)(Cart);
+export default connect(mapStateToProps, { deleteItem })(Cart);

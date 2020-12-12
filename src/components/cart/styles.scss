@@ -19,6 +19,11 @@
 			flex-basis: 30px;
 			font-size: 14px;
 		}
+		.price {
+			text-align: right;
+			min-width: 50px;
+			flex-basis: 50px;
+		}
 		.delete {
 			&:hover {
 				path,

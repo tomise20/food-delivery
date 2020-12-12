@@ -2,14 +2,8 @@ import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
-import { connect } from "react-redux";
-import { deleteItem } from "../../redux/cart/actions";
 
-const Item = ({ product, deleteItem, small }) => {
-	const handleDeleteItem = (id) => {
-		deleteItem(id);
-	};
-
+const Item = ({ product, small, deleteItemAction }) => {
 	return (
 		<div className="cart-item">
 			<div className="d-flex p-3 justify-content-between">
@@ -28,13 +22,15 @@ const Item = ({ product, deleteItem, small }) => {
 						</div>
 					</div>
 				</Link>
-				<div className="delete" onClick={() => handleDeleteItem(product.id)}>
+				<div className="delete" onClick={() => deleteItemAction(product.id)}>
 					<FontAwesomeIcon icon={faTrash} />
 				</div>
-				<div className="price text-black-50 text-sm">${product.quantity * product.price}</div>
+				<div className="price text-black-50 text-sm">
+					${parseFloat(product.quantity * product.price).toFixed(2)}
+				</div>
 			</div>
 		</div>
 	);
 };
 
-export default connect(null, { deleteItem })(Item);
+export default Item;
