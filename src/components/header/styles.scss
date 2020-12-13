@@ -7,6 +7,10 @@
 	z-index: 99 !important;
 	box-shadow: 0 0 0 1px rgba(67, 41, 163, 0.1), 0 1px 8px 0 rgba(67, 41, 163, 0.1);
 }
+svg,
+path {
+	color: $red-color;
+}
 #header-search-input {
 	width: 300px;
 	@media screen and (max-width: $lg-breakpoint) {
@@ -32,6 +36,52 @@
 .brand {
 	&:hover {
 		color: $red-color;
+	}
+}
+.profile {
+	&:hover {
+		svg,
+		path {
+			color: #c30012;
+		}
+	}
+}
+.account {
+	&:hover {
+		.account-menu {
+			left: 50%;
+			transform: translateX(-50%);
+			opacity: 1;
+			user-select: unset;
+		}
+		.profile {
+			.name {
+				color: #c30012 !important;
+			}
+		}
+	}
+	.account-menu {
+		position: absolute;
+		top: 42px;
+		opacity: 0;
+		user-select: none;
+		right: -100px;
+		width: 150px;
+		border: 1px solid #ccc;
+		background-color: $light-color;
+		border-radius: 4px;
+		z-index: 5;
+		transition: 0.5s;
+		.account-item {
+			&:hover {
+				cursor: pointer;
+				color: #c30012 !important;
+				svg,
+				path {
+					color: #c30012 !important;
+				}
+			}
+		}
 	}
 }
 .float-cart {

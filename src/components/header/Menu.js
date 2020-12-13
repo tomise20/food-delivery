@@ -1,7 +1,9 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faSearch, faShoppingBag } from "@fortawesome/free-solid-svg-icons";
+import { faSearch, faShoppingBag, faChevronDown, faUserCog, faSignOutAlt } from "@fortawesome/free-solid-svg-icons";
+import { connect } from "react-redux";
+import { authSignOut } from "../../redux/auth/actions";
 import {
 	Collapse,
 	Navbar,
@@ -18,6 +20,10 @@ import {
 const Menu = (props) => {
 	const [isOpen, setIsOpen] = useState(false);
 	const toggle = () => setIsOpen(!isOpen);
+
+	const onSignOut = () => {
+		props.authSignOut();
+	};
 
 	return (
 		<>
@@ -43,14 +49,40 @@ const Menu = (props) => {
 							</InputGroup>
 						</NavItem>
 						<NavItem className="mr-3">
-							<NavLink className="red-color font-weight-bold" to="/components/">
+							<Link className="red-color font-weight-bold" to="/shop">
 								Order now
-							</NavLink>
+							</Link>
 						</NavItem>
 						<NavItem className="mr-3">
-							<Link className="red-color font-weight-bold" to="/signin">
-								Sign In
-							</Link>
+							{props.auth.isLoggedIn ? (
+								<div className="position-relative account">
+									<Link className="red-color profile" to="/profile">
+										<small className="red-color name">
+											Hi, {props.auth.user.name.split(" ")[0]}{" "}
+										</small>
+										<FontAwesomeIcon icon={faChevronDown} className="ml-2 red-color" size="sm" />
+									</Link>
+									<div className="account-menu py-4 d-flex px-2 flex-column justify-content-center">
+										<div className="text-center red-color account-item mb-3">
+											<FontAwesomeIcon icon={faUserCog} size="lg" />
+											<br />
+											Proflie
+										</div>
+										<div
+											className="text-center red-color account-item mb-3"
+											onClick={() => onSignOut()}
+										>
+											<FontAwesomeIcon icon={faSignOutAlt} size="lg" />
+											<br />
+											Sign out
+										</div>
+									</div>
+								</div>
+							) : (
+								<Link className="red-color font-weight-bold" to="/signin">
+									Sign In
+								</Link>
+							)}
 						</NavItem>
 						<NavItem
 							className="shopping-cart"
@@ -68,4 +100,8 @@ const Menu = (props) => {
 	);
 };
 
-export default Menu;
+const mapStateToProps = (state) => ({
+	auth: state.auth,
+});
+
+export default connect(mapStateToProps, { authSignOut })(Menu);
