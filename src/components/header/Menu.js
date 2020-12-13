@@ -48,7 +48,7 @@ const Menu = (props) => {
 							</NavLink>
 						</NavItem>
 						<NavItem className="mr-3">
-							<Link className="red-color font-weight-bold" to="/login">
+							<Link className="red-color font-weight-bold" to="/signin">
 								Sign In
 							</Link>
 						</NavItem>

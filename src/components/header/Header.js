@@ -42,7 +42,7 @@ const Header = (props) => {
 			<div className={`float-cart ${isOpenCart ? "active" : ""}`}>
 				<div className="d-flex justify-content-between align-items-center px-4">
 					<div className="py-3 font-weight-bold dark-color">Your order</div>
-					{isMobile && <FontAwesomeIcon icon={faTimes} size="1x" onClick={() => setIsOpenCart(false)} />}
+					{isMobile && <FontAwesomeIcon icon={faTimes} size="1x" onClick={() => onOpenCart(false)} />}
 				</div>
 				<hr className="mt-0" />
 				{props.items.length > 0 &&

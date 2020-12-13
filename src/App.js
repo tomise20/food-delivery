@@ -1,36 +1,33 @@
 import React, { Fragment } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Home from "./scense/home/Home";
-import Header from "./components/header/Header";
-import Footer from "./components/footer/Footer";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.scss";
+import MainLayout from "./layouts/MainLayout";
 import Shop from "./scense/Shop/Shop";
-import Snackbar from "./components/snackbar/Snackbar";
 import CartPage from "./scense/cart/CartPage";
 import Login from "./scense/auth/Login";
+import AuthLayout from "./layouts/AuthLayout";
 
 export default function App() {
 	return (
 		<Fragment>
 			<Router>
-				<Header />
-				<Snackbar />
 				<Switch>
-					<Route path="/shop">
-						<Shop />
+					<Route exact path={["/", "/shop", "/cart"]}>
+						<MainLayout>
+							<Route path="/shop" component={Shop} />
+							<Route path="/cart" component={CartPage} />
+							<Route exact path="/" component={Home} />
+						</MainLayout>
 					</Route>
-					<Route path="/cart">
-						<CartPage />
-					</Route>
-					<Route path="/login">
-						<Login />
-					</Route>
-					<Route path="/">
-						<Home />
+
+					<Route exact path={["/signin"]}>
+						<AuthLayout>
+							<Route path="/signin" component={Login} />
+						</AuthLayout>
 					</Route>
 				</Switch>
-				<Footer />
 			</Router>
 		</Fragment>
 	);
