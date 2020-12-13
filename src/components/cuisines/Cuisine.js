@@ -40,7 +40,7 @@ const Cuisine = () => {
 				</Link>
 			</SwiperSlide>
 			<SwiperSlide>
-				<Link to="#">
+				<Link to="/shop">
 					<div className="cuisine-item text-center">
 						<img
 							src="https://cdn.pixabay.com/photo/2014/11/05/16/00/thai-food-518035_960_720.jpg"
@@ -52,7 +52,7 @@ const Cuisine = () => {
 				</Link>
 			</SwiperSlide>
 			<SwiperSlide>
-				<Link to="#">
+				<Link to="/shop">
 					<div className="cuisine-item text-center">
 						<img
 							src="https://cdn.pixabay.com/photo/2014/01/14/22/14/tacos-245241_960_720.jpg"
@@ -64,7 +64,7 @@ const Cuisine = () => {
 				</Link>
 			</SwiperSlide>
 			<SwiperSlide>
-				<Link to="#">
+				<Link to="/shop">
 					<div className="cuisine-item text-center">
 						<img
 							src="https://cdn.pixabay.com/photo/2016/03/26/23/19/hamburger-1281855_960_720.jpg"
@@ -76,7 +76,7 @@ const Cuisine = () => {
 				</Link>
 			</SwiperSlide>
 			<SwiperSlide>
-				<Link to="#">
+				<Link to="/shop">
 					<div className="cuisine-item text-center">
 						<img
 							src="https://cdn.pixabay.com/photo/2017/12/09/08/18/pizza-3007395_960_720.jpg"
@@ -88,7 +88,7 @@ const Cuisine = () => {
 				</Link>
 			</SwiperSlide>
 			<SwiperSlide>
-				<Link to="#">
+				<Link to="/shop">
 					<div className="cuisine-item text-center">
 						<img
 							src="https://cdn.pixabay.com/photo/2014/11/05/16/00/thai-food-518035_960_720.jpg"
@@ -100,7 +100,7 @@ const Cuisine = () => {
 				</Link>
 			</SwiperSlide>
 			<SwiperSlide>
-				<Link to="#">
+				<Link to="/shop">
 					<div className="cuisine-item text-center">
 						<img
 							src="https://cdn.pixabay.com/photo/2014/01/14/22/14/tacos-245241_960_720.jpg"
@@ -112,7 +112,7 @@ const Cuisine = () => {
 				</Link>
 			</SwiperSlide>
 			<SwiperSlide>
-				<Link to="#">
+				<Link to="/shop">
 					<div className="cuisine-item text-center">
 						<img
 							src="https://cdn.pixabay.com/photo/2016/03/26/23/19/hamburger-1281855_960_720.jpg"
