@@ -16,9 +16,9 @@ a {
 }
 .red-color {
 	color: $red-color;
-	&:hover {
-		color: #c30012;
-	}
+}
+a.red-color:hover {
+	color: #c30012;
 }
 .dark-color {
 	color: $dark-color;
