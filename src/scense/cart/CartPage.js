@@ -89,7 +89,7 @@ const CartPage = (props) => {
 	return (
 		<Container fluid className="mt-5" id="cart-page">
 			<Row>
-				<Col lg={9} className="order-2 order-lg-1">
+				<Col lg={8} xl={9} className="order-2 order-lg-1">
 					<form onSubmit={(e) => onHandleSubmit(e)}>
 						<div className="cart-wrapper p-4">
 							<Row>
@@ -306,7 +306,7 @@ const CartPage = (props) => {
 						</div>
 					</form>
 				</Col>
-				<Col lg={3} className="order-1 order-lg-2 mb-3">
+				<Col lg={4} xl={3} className="order-1 order-lg-2 mb-3">
 					<Cart />
 				</Col>
 			</Row>
