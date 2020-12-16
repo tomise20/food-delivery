@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import "./styles.scss";
 import Menu from "./Menu";
 import MobileMenu from "./MobileMenu";
@@ -28,9 +28,12 @@ const Header = (props) => {
 
 	const isMobile = windowDimension <= 768;
 
-	const onOpenCart = (operation) => {
-		setIsOpenCart(operation);
-	};
+	const onOpenCart = useCallback(
+		(operation) => {
+			setIsOpenCart(operation);
+		},
+		[setIsOpenCart]
+	);
 
 	const handleDeleteItem = (id) => {
 		props.deleteItem(id, props.items);
