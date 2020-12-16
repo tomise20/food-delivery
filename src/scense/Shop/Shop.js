@@ -1,73 +1,14 @@
-import React, { useState } from "react";
-import {
-	Container,
-	Row,
-	Col,
-	Button,
-	Modal,
-	ModalHeader,
-	ModalBody,
-	ModalFooter,
-	InputGroup,
-	InputGroupAddon,
-	Input,
-} from "reactstrap";
+import React from "react";
+import { Container, Row, Col } from "reactstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStar, faMapMarkerAlt, faPhone, faEnvelope } from "@fortawesome/free-solid-svg-icons";
-import { connect } from "react-redux";
-import { addToCart, incrementItemQuantity } from "../../redux/cart/actions";
-import { modifyItem } from "../../redux/products/actions";
-import { showSnackbar } from "../../redux/snackbar/actions";
 import List from "../../components/shop/List";
 import Cart from "../../components/cart/Cart";
 import Coupon from "../../components/shop/Coupon";
 
 import "./styles.scss";
 
-const Shop = (props) => {
-	const [modal, setModal] = useState(false);
-	const [item, setItem] = useState({});
-
-	const toggle = (data) => {
-		setModal(!modal);
-		data.quantity = 1;
-		setItem(data);
-	};
-
-	const handleAddToCart = () => {
-		if (item.isCart) {
-			props.incrementItemQuantity(item, props.items);
-			props.showSnackbar("You successfully added to cart!");
-			setModal(!modal);
-		} else {
-			props.addToCart(item, props.items);
-			props.modifyItem(item.id, props.products);
-			props.showSnackbar("You successfully added to cart!");
-			setModal(!modal);
-		}
-	};
-
-	const handleQuantity = (operation = null, e = null) => {
-		if (operation === "add") {
-			setItem({
-				...item,
-				quantity: item.quantity + 1,
-			});
-		} else if (operation === "subtraction") {
-			if (item.quantity > 1) {
-				setItem({
-					...item,
-					quantity: item.quantity - 1,
-				});
-			}
-		} else {
-			setItem({
-				...item,
-				quantity: e.target.value,
-			});
-		}
-	};
-
+const Shop = () => {
 	return (
 		<div className="store">
 			<div className="store-image"></div>
@@ -126,7 +67,7 @@ const Shop = (props) => {
 							</div>
 						</div>
 						<h2 className="font-weight-bold mb-3">Most popular</h2>
-						<List openModal={toggle} />
+						<List />
 					</Col>
 					<Col lg={6} xl={3}>
 						<Cart />
@@ -204,56 +145,8 @@ const Shop = (props) => {
 					</Col>
 				</Row>
 			</Container>
-
-			<Modal isOpen={modal} className="modal-lg item-modal" toggle={toggle}>
-				<ModalHeader toggle={toggle} className="p-0">
-					<img
-						src="https://cdn.pixabay.com/photo/2016/05/25/10/43/hamburger-1414422_960_720.jpg"
-						alt="food"
-					/>
-				</ModalHeader>
-				<ModalBody>
-					<div className="name dark-color font-weight-bold mb-1">{item.name}</div>
-					<h5 className="dark-color mb-3">${item.price}</h5>
-					<p className="text-black-50">{item.cal} Cal</p>
-					<div className="d-flex align-items-center">
-						<span className="font-weight-bold dark-color mr-3">Quantity</span>
-						<InputGroup className="mb-0">
-							<InputGroupAddon
-								addonType="prepend"
-								onClick={() => handleQuantity("subtraction")}
-								className="border-right-0"
-							>
-								-
-							</InputGroupAddon>
-							<Input
-								className="border-left-0 border-right-0 text-center"
-								min={0}
-								max={100}
-								type="text"
-								step="1"
-								value={item.quantity}
-								onChange={(e) => handleQuantity(null, e)}
-							/>
-							<InputGroupAddon addonType="append" onClick={() => handleQuantity("add")}>
-								+
-							</InputGroupAddon>
-						</InputGroup>
-					</div>
-				</ModalBody>
-				<ModalFooter className="justify-content-start">
-					<Button className="add-to-cart" size="sm" onClick={handleAddToCart}>
-						Add to cart : ${parseFloat(item.price * item.quantity).toFixed(2)}
-					</Button>
-				</ModalFooter>
-			</Modal>
 		</div>
 	);
 };
 
-const mapStateToProps = (state) => ({
-	items: state.cart.items,
-	products: state.product.products,
-});
-
-export default connect(mapStateToProps, { addToCart, incrementItemQuantity, modifyItem, showSnackbar })(Shop);
+export default Shop;
