@@ -15,8 +15,8 @@ const ShopModal = ({ item, onItemQuantity, onCloseModal, addCart }) => {
 	};
 
 	return (
-		<Modal isOpen={true} className="modal-lg item-modal" toggle={onCloseModal}>
-			<ModalHeader toggle={() => onCloseModal} className="p-0">
+		<Modal isOpen={true} className="modal-lg item-modal" toggle={() => onCloseModal()}>
+			<ModalHeader toggle={() => onCloseModal()} className="p-0">
 				<img src="https://cdn.pixabay.com/photo/2016/05/25/10/43/hamburger-1414422_960_720.jpg" alt="food" />
 			</ModalHeader>
 			<ModalBody>
