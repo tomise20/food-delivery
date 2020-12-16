@@ -5,11 +5,14 @@ import Item from "./Item";
 import { Link, useRouteMatch } from "react-router-dom";
 import { connect } from "react-redux";
 import { deleteItem } from "../../redux/cart/actions";
+import { modifyItem } from "../../redux/products/actions";
 
 const Cart = (props) => {
-	let uri = useRouteMatch();
+	var uri = useRouteMatch();
+
 	const handleDeleteItem = (id) => {
 		props.deleteItem(id, props.items);
+		props.modifyItem(id, props.products, false);
 	};
 
 	return (
@@ -78,6 +81,7 @@ const Cart = (props) => {
 const mapStateToProps = (state) => ({
 	items: state.cart.items,
 	total: state.cart.total,
+	products: state.product.products,
 });
 
-export default connect(mapStateToProps, { deleteItem })(Cart);
+export default connect(mapStateToProps, { deleteItem, modifyItem })(Cart);
