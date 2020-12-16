@@ -17,13 +17,16 @@ const Coupon = ({ showSnackbar }) => {
 		});
 	};
 
-	const onSubscribe = () => {
-		showSnackbar("You successfully subscribed!");
+	const onSubscribe = (e) => {
+		e.preventDefault();
 
-		setData({
-			email: "",
-			postcode: "",
-		});
+		if (data.email !== "" && data.postcode !== "") {
+			showSnackbar("You successfully subscribed!");
+			setData({
+				email: "",
+				postcode: "",
+			});
+		}
 	};
 
 	return (
@@ -38,19 +41,33 @@ const Coupon = ({ showSnackbar }) => {
 					</p>
 				</div>
 				<div className="p-3">
-					<FormGroup>
-						<Label>E-mail</Label>
-						<Input type="email" value={data.email} name="email" onChange={(e) => handleChange(e)} />
-					</FormGroup>
-					<FormGroup>
-						<Label>Postcode</Label>
-						<Input type="number" value={data.postcode} name="postcode" onChange={(e) => handleChange(e)} />
-					</FormGroup>
-					<FormGroup>
-						<Button onclick={onSubscribe} small block classes="coupon-btn text-white btn">
-							Save $10 on your first order
-						</Button>
-					</FormGroup>
+					<form onSubmit={(e) => onSubscribe(e)}>
+						<FormGroup>
+							<Label>E-mail</Label>
+							<Input
+								type="email"
+								value={data.email}
+								name="email"
+								onChange={(e) => handleChange(e)}
+								required
+							/>
+						</FormGroup>
+						<FormGroup>
+							<Label>Postcode</Label>
+							<Input
+								type="number"
+								value={data.postcode}
+								name="postcode"
+								onChange={(e) => handleChange(e)}
+								required
+							/>
+						</FormGroup>
+						<FormGroup>
+							<Button type="submit" small block classes="coupon-btn text-white btn">
+								Save $10 on your first order
+							</Button>
+						</FormGroup>
+					</form>
 					<small className="text-center d-block">
 						Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce tellus erat, placerat sit amet
 						vestibulum a, imperdiet ut quam. Nunc quis elit ullamcorper, blandit ligula ac, laoreet nulla.
