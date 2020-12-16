@@ -38,7 +38,7 @@ In future components and features:
     -   posts
     -   post
 -   features
-    -   help desk cheat
+    -   help desk chat
     -   notifications
     -   promo code
     -   order system
