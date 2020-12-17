@@ -1,13 +1,15 @@
 import React, { Fragment } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Home from "./scense/home/Home";
-import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.scss";
 import MainLayout from "./layouts/MainLayout";
 import Shop from "./scense/Shop/Shop";
 import CartPage from "./scense/cart/CartPage";
 import Login from "./scense/auth/Login";
 import AuthLayout from "./layouts/AuthLayout";
+
+import "bootstrap/dist/css/bootstrap.min.css";
+import PageNotFound from "./scense/404/PageNotFound";
 
 export default function App() {
 	return (
@@ -27,6 +29,7 @@ export default function App() {
 							<Route path="/signin" component={Login} />
 						</AuthLayout>
 					</Route>
+					<Route path="*" component={PageNotFound} />
 				</Switch>
 			</Router>
 		</Fragment>
