@@ -36,7 +36,7 @@ const Login = ({ authLogin, auth }) => {
 					</div>
 				)}
 				<div className="d-flex align-items-center">
-					<div className="left-side w-50"></div>
+					<div className="left-side w-50 d-none d-lg-block"></div>
 					<div className="right-side w-50 position-relative">
 						<div className="login-card p-4">
 							<div className="title font-weight-bold mb-4">Sign in with your Quickmunch account</div>

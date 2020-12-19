@@ -2,10 +2,11 @@ import { REQUEST_AUTH_LOGIN, SUCCESS_AUTH_LOGIN, FAILED_AUTH_LOGIN, AUTH_SIGN_OU
 
 const initialState = {
 	user: {
+		accessToken: "",
 		name: "",
 		username: "",
 		email: "",
-		password: "",
+		updated_at: "",
 	},
 	isLoggedIn: false,
 	loading: false,
@@ -26,6 +27,7 @@ const AuthReducer = (state = initialState, action) => {
 				loading: false,
 				isLoggedIn: true,
 				user: action.payload,
+				error: "",
 			};
 		}
 		case FAILED_AUTH_LOGIN: {
