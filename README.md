@@ -2,7 +2,8 @@
 
 **The page is in progress.**
 
-This is a reference work. Used technologies: React, Html, Scss, reactstrap. Currently all data is static, and not backend, but the backend is already in progress.
+This is a reference work. Used technologies: React, redux, axios, Html, Scss, reactstrap. Currently all data is static, and no backend, but the backend is already in progress.
+
 **Currently login data is:** username: user and password: passwrod
 
 Live demo: [Food Delivery demo page](https://tomise20.github.io/food-delivery/)
