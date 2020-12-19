@@ -1,14 +1,20 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Container, Row, Col, Input, Button } from "reactstrap";
 import "swiper/swiper.scss";
 import "./styles.scss";
 import Cuisine from "../../components/cuisines/Cuisine";
+import { connect } from "react-redux";
+import { fetchShops } from "../../redux/shops/actions";
 
 import introImage from "../../images/intro-image.jpg";
 import ProductList from "../../components/products/ProductList";
 
-export default function Home() {
+const Home = ({ fetchShops }) => {
+	useEffect(() => {
+		fetchShops();
+	}, []);
+
 	return (
 		<div id="home">
 			<div className="intro">
@@ -46,7 +52,7 @@ export default function Home() {
 			<Container>
 				<Row className="my-5">
 					<Col xs={12}>
-						<h2 className="mb-4">Browse by cuisine</h2>
+						<h2 className="mb-4">Browse by shop</h2>
 						<Cuisine />
 					</Col>
 				</Row>
@@ -182,4 +188,6 @@ export default function Home() {
 			</Container>
 		</div>
 	);
-}
+};
+
+export default connect(null, { fetchShops })(Home);
