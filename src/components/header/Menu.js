@@ -64,9 +64,11 @@ const Menu = (props) => {
 									</Link>
 									<div className="account-menu py-4 d-flex px-2 flex-column justify-content-center">
 										<div className="text-center red-color account-item mb-3">
-											<FontAwesomeIcon icon={faUserCog} size="lg" />
-											<br />
-											Proflie
+											<Link to="/profile">
+												<FontAwesomeIcon icon={faUserCog} size="lg" />
+												<br />
+												Proflie
+											</Link>
 										</div>
 										<div
 											className="text-center red-color account-item mb-3"
