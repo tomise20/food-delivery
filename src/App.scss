@@ -24,12 +24,12 @@ a.red-color:hover {
 	color: $dark-color;
 }
 .red-btn {
-	background-color: $red-color;
-	color: $light-color;
-	border-color: $red-color;
+	background-color: $red-color !important;
+	color: $light-color !important;
+	border-color: $red-color !important;
 	&:hover {
-		background-color: #c30012;
-		border-color: #c30012;
+		background-color: #c30012 !important;
+		border-color: #c30012 !important;
 	}
 }
 .text-sm {

@@ -6,22 +6,22 @@ const ProductList = () => {
 	return (
 		<div>
 			<Row>
-				<Col lg={4}>
+				<Col lg={4} md={6}>
 					<Product />
 				</Col>
-				<Col lg={4}>
+				<Col lg={4} md={6}>
 					<Product />
 				</Col>
-				<Col lg={4}>
+				<Col lg={4} md={6}>
 					<Product />
 				</Col>
-				<Col lg={4}>
+				<Col lg={4} md={6}>
 					<Product />
 				</Col>
-				<Col lg={4}>
+				<Col lg={4} md={6}>
 					<Product />
 				</Col>
-				<Col lg={4}>
+				<Col lg={4} md={6}>
 					<Product />
 				</Col>
 			</Row>

@@ -28,10 +28,11 @@ export const authLogin = (username, password) => {
 		axios
 			.post(`${process.env.REACT_APP_SERVER_URL}/login`, credentials)
 			.then((res) => {
-				console.log(res);
+				console.log(res.data);
 				let user = res.data.user;
 				user.accessToken = res.data.access_token.token;
 				delete user.password;
+
 				dispatch(successAuthLogin(user));
 			})
 			.catch((error) => {
