@@ -1,7 +1,21 @@
 import React, { useState } from "react";
-import { Container, Row, Col, Tooltip, Card, CardBody, CardTitle, CardText } from "reactstrap";
+import {
+	Container,
+	Row,
+	Col,
+	Card,
+	CardBody,
+	CardTitle,
+	CardText,
+	Modal,
+	ModalHeader,
+	ModalBody,
+	FormGroup,
+	Input,
+	Label,
+} from "reactstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faEye, faCheck } from "@fortawesome/free-solid-svg-icons";
+import { faCheck } from "@fortawesome/free-solid-svg-icons";
 import { connect } from "react-redux";
 import { authSignOut } from "../../redux/auth/actions";
 
@@ -9,15 +23,51 @@ import "./styles.scss";
 import Button from "../../components/shared/Button";
 import OrderItem from "./OrderItem";
 import { Redirect } from "react-router-dom";
+import axios from "axios";
 
 const Profile = ({ auth, authSignOut }) => {
 	const handleSignOut = () => {
 		authSignOut();
 	};
 
+	const [address, setAddress] = useState({
+		address_name: "",
+		name: "",
+		street: "",
+		postcode: "",
+		city: "",
+		country: "",
+		user_id: "",
+	});
+
+	const handleChange = (e) => {
+		setAddress({ ...address, [e.target.name]: e.target.value });
+	};
+
+	const [modal, setModal] = useState(false);
+	const toggle = () => setModal(!modal);
+
 	if (!auth.isLoggedIn) {
 		return <Redirect to="/" />;
 	}
+
+	const onSubmit = (e) => {
+		e.preventDefault();
+		setAddress({ ...address, user_id: auth.user.id });
+
+		axios
+			.post(`${process.env.REACT_APP_SERVER_URL}/store-address`, address, {
+				headers: {
+					Authorization: `Bearer ${auth.user.accessToken}`,
+				},
+			})
+			.then((res) => {
+				console.log(res.data);
+			})
+			.catch((err) => {
+				console.log(err.message);
+			});
+	};
 
 	return (
 		<div className="profile">
@@ -59,40 +109,32 @@ const Profile = ({ auth, authSignOut }) => {
 							<h2 className="font-weight-bold mb-4">My addresses</h2>
 							<div className="addresses">
 								<Row>
-									<Col lg={6}>
-										<Card>
-											<CardBody>
-												<CardTitle className="font-weight-bold">Home address</CardTitle>
-												<CardText>
-													<div>Jhone Doe</div>
-													<div>Blue Street</div>
-													<div>12345 New York</div>
-													<div>USA</div>
-													<Button type="button" classes="btn btn-warning px-5 mt-3">
-														Edit
-													</Button>
-												</CardText>
-											</CardBody>
-										</Card>
-									</Col>
-									<Col lg={6}>
-										<Card>
-											<CardBody>
-												<CardTitle className="font-weight-bold">Office address</CardTitle>
-												<CardText>
-													<div>Jhone Doe</div>
-													<div>Green Street</div>
-													<div>12545 New York</div>
-													<div>USA</div>
-													<Button type="button" classes="btn btn-warning px-5 mt-3">
-														Edit
-													</Button>
-													<Button type="button" classes="btn btn-success px-4 mt-3 ml-2">
-														<FontAwesomeIcon icon={faCheck} /> Active
-													</Button>
-												</CardText>
-											</CardBody>
-										</Card>
+									{auth.user.addresses.map((address) => (
+										<Col lg={6}>
+											<Card>
+												<CardBody>
+													<CardTitle className="font-weight-bold">
+														{address.address_name}
+													</CardTitle>
+													<CardText>
+														<div>{address.name}</div>
+														<div>{address.street}</div>
+														<div>
+															{address.postcode} {address.city}
+														</div>
+														<div>{address.country}</div>
+														<Button type="button" classes="btn btn-warning px-5 mt-3">
+															Edit
+														</Button>
+													</CardText>
+												</CardBody>
+											</Card>
+										</Col>
+									))}
+									<Col lg={12} className="mt-4">
+										<Button type="button" classes="btn btn-info" onclick={() => toggle()}>
+											Add new address
+										</Button>
 									</Col>
 								</Row>
 							</div>
@@ -100,6 +142,101 @@ const Profile = ({ auth, authSignOut }) => {
 					</Col>
 				</Row>
 			</Container>
+
+			<Modal isOpen={modal} toggle={toggle}>
+				<ModalHeader toggle={toggle}>Add new address</ModalHeader>
+				<ModalBody>
+					<form onSubmit={onSubmit}>
+						<FormGroup>
+							<Label>Address name</Label>
+							<Input
+								type="text"
+								onChange={handleChange}
+								placeholder="Home address"
+								name="address_name"
+								value={address.address_name}
+								required
+							/>
+						</FormGroup>
+						<Row form>
+							<Col md={6}>
+								<FormGroup>
+									<Label>Full name</Label>
+									<Input
+										type="text"
+										onChange={handleChange}
+										name="name"
+										placeholder="Jhon doe"
+										value={address.name}
+										required
+									/>
+								</FormGroup>
+							</Col>
+							<Col md={6}>
+								<FormGroup>
+									<Label>Full name</Label>
+									<Input
+										type="text"
+										onChange={handleChange}
+										placeholder="Blue street"
+										name="street"
+										value={address.street}
+										required
+									/>
+								</FormGroup>
+							</Col>
+						</Row>
+						<Row form>
+							<Col md={6}>
+								<FormGroup>
+									<Label>City</Label>
+									<Input
+										type="text"
+										onChange={handleChange}
+										name="city"
+										placeholder="New York"
+										value={address.city}
+										required
+									/>
+								</FormGroup>
+							</Col>
+							<Col md={6}>
+								<FormGroup>
+									<Label>Postcode</Label>
+									<Input
+										type="text"
+										onChange={handleChange}
+										placeholder="123456"
+										name="postcode"
+										value={address.postcode}
+										required
+									/>
+								</FormGroup>
+							</Col>
+						</Row>
+						<Row form>
+							<Col md={6}>
+								<FormGroup>
+									<Label>City</Label>
+									<Input
+										type="text"
+										onChange={handleChange}
+										name="country"
+										placeholder="USA"
+										value={address.country}
+										required
+									/>
+								</FormGroup>
+							</Col>
+						</Row>
+						<FormGroup>
+							<Button type="submit" classes="btn btn-success">
+								Save address
+							</Button>
+						</FormGroup>
+					</form>
+				</ModalBody>
+			</Modal>
 		</div>
 	);
 };

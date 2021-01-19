@@ -2,6 +2,7 @@ import { REQUEST_AUTH_LOGIN, SUCCESS_AUTH_LOGIN, FAILED_AUTH_LOGIN, AUTH_SIGN_OU
 
 const initialState = {
 	user: {
+		id: "",
 		accessToken: "",
 		name: "",
 		username: "",
