@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Container, Row, Col, Input } from "reactstrap";
 import Cart from "../../components/cart/Cart";
 import {
@@ -38,6 +38,18 @@ const CartPage = (props) => {
 			name: "",
 		},
 	});
+	const [activeAddress, setActiveAddress] = useState(null);
+	const { auth } = props;
+
+	useEffect(() => {
+		if (auth.isLoggedIn) {
+			async function loadActiveAddress() {
+				const active = await auth.user.addresses.find((address) => address.is_active === 1);
+				setActiveAddress(active);
+			}
+			loadActiveAddress();
+		}
+	}, []);
 
 	const onHandleChange = (e) => {
 		setData({
@@ -86,6 +98,7 @@ const CartPage = (props) => {
 	const toggle = (tab) => {
 		if (activeTab !== tab) setActiveTab(tab);
 	};
+
 	return (
 		<Container fluid className="mt-5" id="cart-page">
 			<Row>
@@ -103,13 +116,21 @@ const CartPage = (props) => {
 										</div>
 										<h4 className="font-weight-bold mb-2">Your order setting</h4>
 										<h6 className="font-weight-bold red-color mb-4">Delivery (50-60 min)</h6>
-										<div className="user-info d-flex flex-column">
-											<span className="mb-2">Jhone Doe</span>
-											<span className="font-weight-bold mb-1">Home address</span>
-											<span className="text-black-50">6700 Szeged Példa sugárút 46.</span>
-											<span className="text-black-50 mb-2">2. emelet 8</span>
-											<span className="text-black-50"> +36 (30) 123 45 67</span>
-										</div>
+										{activeAddress != null ? (
+											<div className="user-info d-flex flex-column">
+												<span className="font-weight-bold mb-1">
+													{activeAddress.address_name}
+												</span>
+												<span className="mb-0 text-black-50">{activeAddress.name}</span>
+												<span className="text-black-50">
+													{activeAddress.postcode} {activeAddress.city} {activeAddress.street}
+												</span>
+												<span className="text-black-50 mb-2">{activeAddress.country}</span>
+												{/* <span className="text-black-50"> +36 (30) 123 45 67</span> */}
+											</div>
+										) : (
+											<div>Log out</div>
+										)}
 									</div>
 								</Col>
 								<Col lg={6} className="d-none d-lg-flex">
@@ -316,6 +337,7 @@ const CartPage = (props) => {
 
 const mapStateToProps = (state) => ({
 	cart: state.cart,
+	auth: state.auth,
 });
 
 export default connect(mapStateToProps, { showSnackbar })(CartPage);

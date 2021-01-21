@@ -76,5 +76,10 @@
 		path {
 			color: #fff !important;
 		}
+		.inactive {
+			&:hover {
+				cursor: pointer;
+			}
+		}
 	}
 }
