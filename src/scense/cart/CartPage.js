@@ -24,11 +24,19 @@ import { connect } from "react-redux";
 import { showSnackbar } from "../../redux/snackbar/actions";
 
 import "./styles.scss";
+import { Link } from "react-router-dom";
 
 const CartPage = (props) => {
 	const [activeTab, setActiveTab] = useState("1");
 	const [data, setData] = useState({
 		payment_option: "credit-card",
+		address: {
+			name: "",
+			street: "",
+			phone: "",
+			city: "",
+			postcode: "",
+		},
 		note: "",
 		promo_code: "",
 		card: {
@@ -75,24 +83,33 @@ const CartPage = (props) => {
 		});
 	};
 
+	const onChangeAddress = (e) => {
+		setData({ ...data, address: { ...data.address, [e.target.name]: e.target.value } });
+	};
+
 	const onHandleSubmit = (e) => {
 		e.preventDefault();
-		if (data.payment_option === "credit-card") {
-			if (data.card.number === "") {
-			}
-		} else {
-			setData({
-				payment_option: "credit-card",
-				note: "",
-				promo_code: "",
-				card: {
-					number: "",
-					expires: "",
-					code: "",
-					name: "",
-				},
-			});
-		}
+
+		console.log(data);
+
+		setData({
+			payment_option: "credit-card",
+			address: {
+				name: "",
+				street: "",
+				phone: "",
+				city: "",
+				postcode: "",
+			},
+			note: "",
+			promo_code: "",
+			card: {
+				number: "",
+				expires: "",
+				code: "",
+				name: "",
+			},
+		});
 	};
 
 	const toggle = (tab) => {
@@ -118,18 +135,75 @@ const CartPage = (props) => {
 										<h6 className="font-weight-bold red-color mb-4">Delivery (50-60 min)</h6>
 										{activeAddress != null ? (
 											<div className="user-info d-flex flex-column">
+												<span className="mb-0 text-black-50 mb-2">{activeAddress.name}</span>
 												<span className="font-weight-bold mb-1">
 													{activeAddress.address_name}
 												</span>
-												<span className="mb-0 text-black-50">{activeAddress.name}</span>
 												<span className="text-black-50">
-													{activeAddress.postcode} {activeAddress.city} {activeAddress.street}
+													{activeAddress.postcode} {activeAddress.city}
 												</span>
-												<span className="text-black-50 mb-2">{activeAddress.country}</span>
-												{/* <span className="text-black-50"> +36 (30) 123 45 67</span> */}
+												<span className="text-black-50">{activeAddress.street}</span>
+												<span className="text-black-50">{activeAddress.phone}</span>
 											</div>
 										) : (
-											<div>Log out</div>
+											<div>
+												<Row form className="mb-3">
+													<Col lg={6}>
+														<Input
+															type="text"
+															name="name"
+															value={data.address.name}
+															placeholder="Full name"
+															onChange={onChangeAddress}
+														/>
+													</Col>
+													<Col lg={6}>
+														<Input
+															type="text"
+															name="street"
+															value={data.address.street}
+															placeholder="Street"
+															onChange={onChangeAddress}
+														/>
+													</Col>
+												</Row>
+												<Row form className="mb-3">
+													<Col lg={6}>
+														<Input
+															type="text"
+															name="postcode"
+															value={data.address.postcode}
+															placeholder="Postcode"
+															onChange={onChangeAddress}
+														/>
+													</Col>
+													<Col lg={6}>
+														<Input
+															type="text"
+															name="city"
+															value={data.address.city}
+															placeholder="City"
+															onChange={onChangeAddress}
+														/>
+													</Col>
+												</Row>
+												<Row form className="mb-3 align-items-center">
+													<Col lg={6}>
+														<Input
+															type="text"
+															name="phone"
+															value={data.address.phone}
+															placeholder="Phone number"
+															onChange={onChangeAddress}
+														/>
+													</Col>
+													<Col lg={6} className="text-center">
+														<Link to="/signin" className="red-color">
+															or Sign In
+														</Link>
+													</Col>
+												</Row>
+											</div>
 										)}
 									</div>
 								</Col>
@@ -145,8 +219,10 @@ const CartPage = (props) => {
 								<Col xs={12}>
 									<div className="h4">Delivery Instructions</div>
 									<textarea
+										name="note"
+										value={data.note}
 										className="form-control"
-										onChange={(e) => onHandleChange(e)}
+										onChange={onHandleChange}
 										rows="6"
 									></textarea>
 								</Col>
@@ -169,7 +245,9 @@ const CartPage = (props) => {
 															</InputGroupText>
 														</InputGroupAddon>
 														<Input
+															value={data.promo_code}
 															placeholder="ABC123"
+															name="promo_code"
 															onChange={(e) => onHandleChange(e)}
 															className="border-0"
 														/>
