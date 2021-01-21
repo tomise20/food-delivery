@@ -38,9 +38,10 @@ const Profile = ({ auth, authSignOut, addAddress, setActiveAddress, deleteAddres
 		city: "",
 		country: "",
 		user_id: "",
+		phone: "",
 		is_active: false,
 	});
-	const [cookies, setCookie, removeCookie] = useCookies(["token"]);
+	const [cookies] = useCookies(["token"]);
 	const token = cookies.token;
 
 	const handleChange = (e) => {
@@ -148,6 +149,7 @@ const Profile = ({ auth, authSignOut, addAddress, setActiveAddress, deleteAddres
 															{address.postcode} {address.city}
 														</div>
 														<div>{address.country}</div>
+														<div>{address.phone}</div>
 														<div className="mt-3 d-flex align-items-center">
 															<Button
 																type="button"
@@ -287,6 +289,21 @@ const Profile = ({ auth, authSignOut, addAddress, setActiveAddress, deleteAddres
 										value={address.is_active}
 										checked={address.is_active}
 										label="Active address"
+									/>
+								</FormGroup>
+							</Col>
+						</Row>
+						<Row form style={{ alignItems: "center" }}>
+							<Col md={6}>
+								<FormGroup>
+									<Label>Phone</Label>
+									<Input
+										type="text"
+										onChange={handleChange}
+										name="phone"
+										placeholder="+36 30 123 45 67"
+										value={address.phone}
+										required
 									/>
 								</FormGroup>
 							</Col>
