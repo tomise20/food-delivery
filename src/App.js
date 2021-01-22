@@ -12,18 +12,23 @@ import store from "./redux/store";
 
 import "bootstrap/dist/css/bootstrap.min.css";
 import PageNotFound from "./scense/404/PageNotFound";
+import { SocketContext, socket } from "./context/socket";
+import Profile from "./scense/Profile";
 
 export default function App() {
 	return (
 		<Provider store={store}>
 			<Router basename={process.env.REACT_APP_PUBLIC_URL}>
 				<Switch>
-					<Route exact path={["/", "/shop", "/cart"]}>
-						<MainLayout>
-							<Route path="/shop" component={Shop} />
-							<Route path="/cart" component={CartPage} />
-							<Route exact path="/" component={Home} />
-						</MainLayout>
+					<Route exact path={["/", "/shop", "/cart", "/profile"]}>
+						<SocketContext.Provider value={socket}>
+							<MainLayout>
+								<Route path="/shop" component={Shop} />
+								<Route path="/cart" component={CartPage} />
+								<Route path="/profile" component={Profile} />
+								<Route exact path="/" component={Home} />
+							</MainLayout>
+						</SocketContext.Provider>
 					</Route>
 
 					<Route exact path={["/signin"]}>

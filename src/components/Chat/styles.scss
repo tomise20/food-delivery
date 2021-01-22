@@ -1,0 +1,95 @@
+@import "../../styles/colors";
+
+.chat-icon {
+	width: 60px;
+	height: 60px;
+	box-shadow: 0 0 3px rgba(0, 0, 0, 0.3);
+	background-color: #fff;
+	line-height: 60px;
+	text-align: center;
+	border-radius: 50%;
+	position: fixed;
+	right: 20px;
+	bottom: 50px;
+	z-index: 10;
+	&:hover {
+		cursor: pointer;
+	}
+	.path,
+	svg {
+		color: $red-color;
+	}
+}
+.chat {
+	position: fixed;
+	right: 10px;
+	bottom: -450px;
+	transform: bottom 0.5s;
+	z-index: 12;
+	width: 300px;
+	height: 450px;
+	border: 1px solid #cecece;
+	border-top-left-radius: 10px;
+	border-top-right-radius: 10px;
+	background-color: #fff;
+	.chat-header {
+		&:hover {
+			cursor: pointer;
+		}
+	}
+	.chat-body {
+		height: calc(100% - 86px);
+		overflow-y: auto;
+		&::-webkit-scrollbar {
+			width: 6px;
+			border-radius: 3px;
+		}
+		&::-webkit-scrollbar-thumb {
+			background-color: $red-color;
+			border-radius: 3px;
+		}
+		&::-webkit-scrollbar-track {
+			background: #cecece;
+			border-radius: 3px;
+		}
+		& {
+			scrollbar-face-color: $red-color;
+			scrollbar-track-color: #cecece;
+		}
+		.message {
+			max-width: 80%;
+			width: auto;
+			height: auto;
+			border-radius: 10px;
+			margin-bottom: 10px;
+			border: 1px solid #cecece;
+			font-size: 14px;
+		}
+		.message-user {
+			background-color: #c30012;
+			border-color: #c30012;
+			color: #fff;
+		}
+		.message-team {
+			background-color: $red-color;
+			border-color: $red-color;
+			color: #fff;
+		}
+	}
+	.chat-input {
+		input {
+			height: 30px;
+			border-radius: 15px;
+			border: 1px solid #cecece;
+			outline: unset;
+			font-size: 14px;
+		}
+		svg,
+		path {
+			cursor: pointer;
+		}
+	}
+}
+.chat.active {
+	bottom: 0;
+}
