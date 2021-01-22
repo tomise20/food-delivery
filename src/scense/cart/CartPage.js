@@ -25,17 +25,23 @@ import { showSnackbar } from "../../redux/snackbar/actions";
 
 import "./styles.scss";
 import { Link } from "react-router-dom";
+import { submitOrder } from "../../services/orders";
+import { useCookies } from "react-cookie";
 
 const CartPage = (props) => {
 	const [activeTab, setActiveTab] = useState("1");
+	const [cookies] = useCookies(["token"]);
+	const token = cookies.token;
 	const [data, setData] = useState({
 		payment_option: "credit-card",
 		address: {
+			address_name: "",
 			name: "",
 			street: "",
 			phone: "",
 			city: "",
 			postcode: "",
+			user_id: "",
 		},
 		note: "",
 		promo_code: "",
@@ -47,13 +53,16 @@ const CartPage = (props) => {
 		},
 	});
 	const [activeAddress, setActiveAddress] = useState(null);
-	const { auth } = props;
+	const { auth, cart } = props;
 
 	useEffect(() => {
 		if (auth.isLoggedIn) {
 			async function loadActiveAddress() {
-				const active = await auth.user.addresses.find((address) => address.is_active === 1);
+				let active = await auth.user.addresses.find((address) => address.is_active === 1);
 				setActiveAddress(active);
+				delete active.is_active;
+
+				setData({ ...data, address: active });
 			}
 			loadActiveAddress();
 		}
@@ -90,7 +99,7 @@ const CartPage = (props) => {
 	const onHandleSubmit = (e) => {
 		e.preventDefault();
 
-		console.log(data);
+		submitOrder(cart, data, token);
 
 		setData({
 			payment_option: "credit-card",
