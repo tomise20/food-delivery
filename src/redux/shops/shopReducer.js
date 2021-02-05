@@ -1,4 +1,11 @@
-import { REQUEST_GET_SHOPS, SUCCESS_GET_SHOPS, FAILED_GET_SHOPS } from "./actionTypes";
+import {
+	REQUEST_GET_SHOPS,
+	SUCCESS_GET_SHOPS,
+	FAILED_GET_SHOPS,
+	REQUEST_FETCH_PRODUCTS,
+	SUCCESS_FETCH_PRODUCTS,
+	FAILED_FETCH_PRODUCTS,
+} from "./actionTypes";
 
 const initialState = {
 	loading: false,
@@ -30,10 +37,26 @@ const shopReducer = (state = initialState, action) => {
 				error: action.payload,
 			};
 		}
-		case MODIFY_ITEM:
+		case REQUEST_FETCH_PRODUCTS: {
 			return {
-				products: action.payload,
+				...state,
+				loading: true,
 			};
+		}
+		case SUCCESS_FETCH_PRODUCTS: {
+			return {
+				...state,
+				loading: false,
+				currentShop: action.payload,
+			};
+		}
+		case FAILED_FETCH_PRODUCTS: {
+			return {
+				...state,
+				loading: false,
+				error: action.error,
+			};
+		}
 		default:
 			return state;
 	}

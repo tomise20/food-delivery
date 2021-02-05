@@ -1,5 +1,10 @@
-import { REQUEST_GET_SHOPS, SUCCESS_GET_SHOPS, FAILED_GET_SHOPS } from "./actionTypes";
-import shops from "../../util/shops";
+import {
+	REQUEST_GET_SHOPS,
+	SUCCESS_GET_SHOPS,
+	FAILED_GET_SHOPS,
+	REQUEST_FETCH_PRODUCTS,
+	SUCCESS_FETCH_PRODUCTS,
+} from "./actionTypes";
 import axios from "axios";
 
 const SERVER_URL = process.env.REACT_APP_SERVER_URL;
@@ -10,10 +15,10 @@ export const requestGetShops = () => {
 	};
 };
 
-export const successGetShops = (user) => {
+export const successGetShops = (shops) => {
 	return {
 		type: SUCCESS_GET_SHOPS,
-		payload: user,
+		payload: shops,
 	};
 };
 
@@ -27,19 +32,41 @@ export const failedGetShops = (error) => {
 export const fetchShops = () => {
 	return (dispatch) => {
 		dispatch(requestGetShops());
-		if (process.env.REACT_APP_DB_MODE == "true") {
-			axios
-				.get(`${SERVER_URL}/home`)
-				.then((res) => {
-					const shops = res.data;
-					console.log(shops);
-					dispatch(successGetShops(shops));
-				})
-				.catch((err) => {
-					dispatch(failedGetShops(err.message));
-				});
-		} else {
-			dispatch(successGetShops(shops));
-		}
+		axios
+			.get(`${SERVER_URL}/shops`)
+			.then((res) => {
+				const shops = res.data;
+				dispatch(successGetShops(shops));
+			})
+			.catch((err) => {
+				dispatch(failedGetShops(err.message));
+			});
+	};
+};
+
+export const requestFetchProducts = () => {
+	return {
+		type: REQUEST_FETCH_PRODUCTS,
+	};
+};
+
+export const successFetchProducts = (shop) => {
+	return {
+		type: SUCCESS_FETCH_PRODUCTS,
+		payload: shop,
+	};
+};
+
+export const fetchProducts = (id) => {
+	return (dispatch) => {
+		dispatch(requestFetchProducts());
+		axios
+			.get(`${process.env.REACT_APP_SERVER_URL}/shops/${id}/products`)
+			.then((res) => {
+				dispatch(successFetchProducts(res.data));
+			})
+			.catch((err) => {
+				console.log(err.message);
+			});
 	};
 };

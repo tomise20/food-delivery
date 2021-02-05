@@ -1,8 +1,9 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { Swiper, SwiperSlide } from "swiper/react";
+import { connect } from "react-redux";
 
-const Cuisine = () => {
+const Cuisine = ({ shops }) => {
 	return (
 		<Swiper
 			breakpoints={{
@@ -27,31 +28,17 @@ const Cuisine = () => {
 			onSlideChange={() => console.log("slide change")}
 			onSwiper={(swiper) => console.log(swiper)}
 		>
-			<SwiperSlide>
-				<Link to="/shop">
-					<div className="cuisine-item text-center">
-						<img
-							src="https://cdn.pixabay.com/photo/2017/12/09/08/18/pizza-3007395_960_720.jpg"
-							className="mb-2"
-							alt="Italian"
-						/>
-						<p>Italian</p>
-					</div>
-				</Link>
-			</SwiperSlide>
-			<SwiperSlide>
-				<Link to="/shop">
-					<div className="cuisine-item text-center">
-						<img
-							src="https://cdn.pixabay.com/photo/2014/11/05/16/00/thai-food-518035_960_720.jpg"
-							className="mb-2"
-							alt="Thai"
-						/>
-						<p>Thai</p>
-					</div>
-				</Link>
-			</SwiperSlide>
-			<SwiperSlide>
+			{shops.map((shop) => (
+				<SwiperSlide key={shop.id}>
+					<Link to={`/shop/${shop.id}`}>
+						<div className="cuisine-item text-center">
+							<img src={shop.shop_image} className="mb-2" alt={shop.name} />
+							<p>{shop.name}</p>
+						</div>
+					</Link>
+				</SwiperSlide>
+			))}
+			{/* <SwiperSlide>
 				<Link to="/shop">
 					<div className="cuisine-item text-center">
 						<img
@@ -122,9 +109,13 @@ const Cuisine = () => {
 						<p>American</p>
 					</div>
 				</Link>
-			</SwiperSlide>
+			</SwiperSlide> */}
 		</Swiper>
 	);
 };
 
-export default Cuisine;
+const mapStateToProps = (state) => ({
+	shops: state.shop.shops,
+});
+
+export default connect(mapStateToProps)(Cuisine);

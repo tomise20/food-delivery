@@ -2,19 +2,31 @@ import { ADD_TO_CART, DELETE_ITEM, INCREMENT_ITEM_QUANTITY } from "./actionTypes
 
 export const addToCart = (item, list) => {
 	let total = 0;
-	if (list.length > 0) {
-		list.forEach((item) => {
-			total += item.quantity * parseFloat(item.price);
+	let temp = [];
+	let cartitems = [];
+	const index = list.some((cartitem) => cartitem.id === item.id);
+
+	if (index) {
+		cartitems = list.map((cartitem) => {
+			if (cartitem.id === item.id) cartitem.quantity += item.quantity;
+
+			return cartitem;
 		});
+	} else {
+		temp = cartitems.concat(list);
+		temp.push(item);
+		cartitems = temp;
 	}
 
-	total += item.quantity * parseFloat(item.price);
+	cartitems.forEach((item) => {
+		total += item.quantity * parseFloat(item.price);
+	});
 	total = parseFloat(total).toFixed(2);
 
 	return {
 		type: ADD_TO_CART,
 		payload: {
-			item,
+			cartitems,
 			total,
 		},
 	};

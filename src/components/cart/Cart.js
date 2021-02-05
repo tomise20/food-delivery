@@ -5,14 +5,14 @@ import Item from "./Item";
 import { Link, useRouteMatch } from "react-router-dom";
 import { connect } from "react-redux";
 import { deleteItem } from "../../redux/cart/actions";
-import { modifyItem } from "../../redux/products/actions";
+import { addFlashMessage } from "../../redux/flash/actions";
 
-const Cart = (props) => {
+const Cart = ({ deleteItem, addFlashMessage, total, items }) => {
 	var uri = useRouteMatch();
 
 	const handleDeleteItem = (id) => {
-		props.deleteItem(id, props.items);
-		props.modifyItem(id, props.products, false);
+		deleteItem(id, items);
+		addFlashMessage("Product successfully removed from cart!");
 	};
 
 	return (
@@ -20,18 +20,16 @@ const Cart = (props) => {
 			<div className="title px-3 py-2 font-weight-bold">Your Order</div>
 			<hr className="mt-0" />
 			<div className="order-list">
-				{props.items.length > 0 &&
-					props.items.map((item) => (
-						<Item key={item.id} deleteItemAction={handleDeleteItem} product={item} />
-					))}
+				{items.length > 0 &&
+					items.map((item) => <Item key={item.id} deleteItemAction={handleDeleteItem} product={item} />)}
 			</div>
-			{props.items.length > 0 ? (
+			{items.length > 0 ? (
 				<>
 					{uri.path !== "/cart" ? (
 						<div className="d-flex justify-content-between p-3">
 							<div className="text-black-50 font-weight-bold text-sm">Items subtotal:</div>
 							<div className="text-black-50 font-weight-bold text-sm">
-								${parseFloat(props.total).toFixed(2)}
+								${parseFloat(total).toFixed(2)}
 							</div>
 						</div>
 					) : (
@@ -39,7 +37,7 @@ const Cart = (props) => {
 							<div className="d-flex justify-content-between px-3 pt-3 pb-1">
 								<div className="text-black-50 font-weight-bold text-sm">Items subtotal:</div>
 								<div className="text-black-50 font-weight-bold text-sm">
-									${parseFloat(props.total).toFixed(2)}
+									${parseFloat(total).toFixed(2)}
 								</div>
 							</div>
 							<div className="d-flex justify-content-between px-3 pb-1">
@@ -49,13 +47,13 @@ const Cart = (props) => {
 							<div className="d-flex justify-content-between px-3 pb-1">
 								<div className="text-black-50 font-weight-bold text-sm">Tax:</div>
 								<div className="text-black-50 font-weight-bold text-sm">
-									${parseFloat(props.total * 0.27).toFixed(2)}
+									${parseFloat(total * 0.27).toFixed(2)}
 								</div>
 							</div>
 							<div className="d-flex justify-content-between px-3 pt-3">
 								<div className="red-color h5 font-weight-bold">Total:</div>
 								<div className="red-color h5 font-weight-bold">
-									${(parseFloat(props.total) + parseFloat(props.total * 0.27)).toFixed(2)}
+									${(parseFloat(total) + parseFloat(total * 0.27)).toFixed(2)}
 								</div>
 							</div>
 						</>
@@ -81,7 +79,6 @@ const Cart = (props) => {
 const mapStateToProps = (state) => ({
 	items: state.cart.items,
 	total: state.cart.total,
-	products: state.product.products,
 });
 
-export default connect(mapStateToProps, { deleteItem, modifyItem })(Cart);
+export default connect(mapStateToProps, { deleteItem, addFlashMessage })(Cart);

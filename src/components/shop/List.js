@@ -1,12 +1,11 @@
 import React, { useState, useCallback } from "react";
 import Item from "./Item";
 import { connect } from "react-redux";
-import { addToCart, incrementItemQuantity } from "../../redux/cart/actions";
-import { modifyItem } from "../../redux/products/actions";
-import { showSnackbar } from "../../redux/snackbar/actions";
+import { addToCart } from "../../redux/cart/actions";
+import { addFlashMessage } from "../../redux/flash/actions";
 import ShopModal from "./ShopModal";
 
-const List = (props) => {
+const List = ({ items, addToCart, products, addFlashMessage }) => {
 	const [modal, setModal] = useState(false);
 	const [selectedItem, setSelectedItem] = useState({});
 
@@ -20,9 +19,7 @@ const List = (props) => {
 		[modal]
 	);
 
-	const closeModal = () => {
-		setModal(false);
-	};
+	const closeModal = () => setModal(false);
 
 	const modifyItemQuantity = (quantity) => {
 		setSelectedItem({
@@ -32,24 +29,21 @@ const List = (props) => {
 	};
 
 	const handleAddToCart = () => {
-		if (selectedItem.isCart) {
-			props.incrementItemQuantity(selectedItem, props.items);
-			props.showSnackbar("You successfully added to cart!");
-			setModal(!modal);
-		} else {
-			props.addToCart(selectedItem, props.items);
-			props.modifyItem(selectedItem.id, props.products);
-			props.showSnackbar("You successfully added to cart!");
-			setModal(!modal);
+		try {
+			// throw new Error("asd");
+			addToCart(selectedItem, items);
+			addFlashMessage("Successfully added to cart!");
+			setModal(false);
+		} catch (error) {
+			addFlashMessage(error.message, "warning");
 		}
 	};
 
 	return (
 		<>
 			<div>
-				{props.products.map((item) => (
-					<Item key={item.id} data={item} toggle={onToggleModal} />
-				))}
+				{products.length > 0 &&
+					products.map((item) => <Item key={item.id} item={item} toggle={onToggleModal} />)}
 			</div>
 			{modal && (
 				<ShopModal
@@ -65,8 +59,7 @@ const List = (props) => {
 };
 
 const mapStateToProps = (state) => ({
-	products: state.product.products,
 	items: state.cart.items,
 });
 
-export default connect(mapStateToProps, { addToCart, incrementItemQuantity, modifyItem, showSnackbar })(List);
+export default connect(mapStateToProps, { addToCart, addFlashMessage })(List);

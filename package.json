@@ -1,5 +1,5 @@
 {
-	"homepage": "http://tomise20.github.io/food-delivery",
+	"homepage": "http://food.tomise20.hu/",
 	"name": "food-delivery",
 	"version": "0.1.0",
 	"private": true,
@@ -20,6 +20,7 @@
 		"react-redux": "^7.2.2",
 		"react-router-dom": "^5.2.0",
 		"react-scripts": "4.0.1",
+		"react-toastify": "^7.0.3",
 		"reactstrap": "^8.7.1",
 		"redux": "^4.0.5",
 		"redux-devtools-extension": "^2.13.8",
@@ -30,8 +31,6 @@
 		"web-vitals": "^0.2.4"
 	},
 	"scripts": {
-		"predeploy": "npm run build",
-		"deploy": "gh-pages -d build",
 		"start": "react-scripts start",
 		"build": "react-scripts build",
 		"test": "react-scripts test",

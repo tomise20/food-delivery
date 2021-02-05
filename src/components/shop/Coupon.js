@@ -2,10 +2,10 @@ import React, { useState } from "react";
 import { FormGroup, Input, Label } from "reactstrap";
 import Button from "../shared/Button";
 import { connect } from "react-redux";
-import { showSnackbar } from "../../redux/snackbar/actions";
 import { Modal, ModalBody } from "reactstrap";
+import { addFlashMessage } from "../../redux/flash/actions";
 
-const Coupon = ({ showSnackbar }) => {
+const Coupon = ({ addFlashMessage }) => {
 	const [data, setData] = useState({
 		email: "",
 		postcode: "",
@@ -22,7 +22,7 @@ const Coupon = ({ showSnackbar }) => {
 		e.preventDefault();
 
 		if (data.email !== "" && data.postcode !== "") {
-			showSnackbar("You successfully subscribed!");
+			addFlashMessage("You successfully subscribed!");
 			setData({
 				email: "",
 				postcode: "",
@@ -97,4 +97,4 @@ const Coupon = ({ showSnackbar }) => {
 	);
 };
 
-export default connect(null, { showSnackbar })(Coupon);
+export default connect(null, { addFlashMessage })(Coupon);

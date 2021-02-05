@@ -6,13 +6,16 @@ import "./styles.scss";
 import Cuisine from "../../components/cuisines/Cuisine";
 import { connect } from "react-redux";
 import { fetchShops } from "../../redux/shops/actions";
+import { getPopularProducts } from "../../redux/products/actions";
 
 import introImage from "../../images/intro-image.jpg";
 import ProductList from "../../components/products/ProductList";
 
-const Home = ({ auth, fetchShops }) => {
+const Home = ({ auth, popularProducts, getPopularProducts }) => {
 	useEffect(() => {
-		fetchShops();
+		if (popularProducts.length === 0) {
+			getPopularProducts();
+		}
 	}, []);
 
 	return (
@@ -194,7 +197,7 @@ const Home = ({ auth, fetchShops }) => {
 						</div>
 					</Col>
 					<Col lg={9} xs={12}>
-						<ProductList />
+						<ProductList products={popularProducts} />
 					</Col>
 				</Row>
 			</Container>
@@ -203,7 +206,8 @@ const Home = ({ auth, fetchShops }) => {
 };
 
 const mapStateToProps = (state) => ({
+	popularProducts: state.product.popularProducts,
 	auth: state.auth,
 });
 
-export default connect(mapStateToProps, { fetchShops })(Home);
+export default connect(mapStateToProps, { fetchShops, getPopularProducts })(Home);

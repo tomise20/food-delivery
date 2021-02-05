@@ -1,22 +1,43 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Container, Row, Col } from "reactstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStar, faMapMarkerAlt, faPhone, faEnvelope } from "@fortawesome/free-solid-svg-icons";
 import List from "../../components/shop/List";
 import Cart from "../../components/cart/Cart";
 import Coupon from "../../components/shop/Coupon";
-
+import { connect } from "react-redux";
+import { useParams } from "react-router-dom";
 import "./styles.scss";
 
-const Shop = () => {
+const Shop = (props) => {
+	const { fetchProducts, loading, currentShop } = props;
+	const contactInfo = currentShop === undefined ? null : JSON.parse(currentShop.contact_info);
+	const open = currentShop === undefined ? null : JSON.parse(currentShop.open_hours);
+
+	if (loading || currentShop === undefined) {
+		return (
+			<div className="loading-screen">
+				<div className="content">
+					<div style={{ color: "#fff" }}>Wait a moment while we load your data.</div>
+					<div className="loading-dot">.</div>
+				</div>
+			</div>
+		);
+	}
+
 	return (
 		<div className="store">
-			<div className="store-image"></div>
+			<div
+				className="store-image"
+				style={{
+					backgroundImage: `url(${currentShop.shop_image})`,
+				}}
+			></div>
 			<Container>
 				<Row>
 					<Col xs={12}>
-						<div className="font-weight-bold dark-color mb-2 title small">Just Burger&Burger</div>
-						<div className="h6">6700 Szeged Példa utca 22.</div>
+						<div className="font-weight-bold dark-color mb-2 title small">{currentShop.name}</div>
+						<div className="h6">{contactInfo && contactInfo.address}</div>
 						<div className="d-flex">
 							<div className="stars mr-2">
 								<FontAwesomeIcon icon={faStar} className="mr-1" />
@@ -36,9 +57,12 @@ const Shop = () => {
 			<Container>
 				<Row className="py-1 align-items-center">
 					<Col xs={12} md={6}>
-						<p className="mb-1 font-weight-light text-sm">Delivery (40-50m)</p>
+						<p className="mb-1 font-weight-light text-sm">Delivery ({currentShop.delivery_time}m)</p>
 						<p className="text-black-50 mb-0">
-							<span className="text-success font-weight-bold text-sm">No minimum</span>, Free Delivery
+							<span className="text-success font-weight-bold text-sm">
+								{currentShop.minimum_order == 0 ? "no minimum" : currentShop.minimum_order}
+							</span>
+							, Free Delivery
 						</p>
 					</Col>
 					<Col xs={12} md={6} className="text-left text-md-center">
@@ -67,7 +91,7 @@ const Shop = () => {
 							</div>
 						</div>
 						<h2 className="font-weight-bold mb-3">Most popular</h2>
-						<List />
+						<List products={currentShop.products} />
 					</Col>
 					<Col lg={6} xl={3}>
 						<Cart />
@@ -77,7 +101,7 @@ const Shop = () => {
 			<Container className="py-5 store-info">
 				<Row>
 					<Col lg={6}>
-						<div className="store-name font-weight-bold dark-color mb-3">Just Burger&Burger</div>
+						<div className="store-name font-weight-bold dark-color mb-3">{currentShop.name}</div>
 						<p className="tags red-color font-weight-light text-sm mb-1">
 							Hungarian, Hamburgers, Coffee & Tea
 						</p>
@@ -90,14 +114,14 @@ const Shop = () => {
 								<div className="icon-wrapper">
 									<FontAwesomeIcon icon={faMapMarkerAlt} className="mr-2" />
 								</div>
-								<div className="text-sm dark-color">6700 Szeged Példa utca 22.</div>
+								<div className="text-sm dark-color">{contactInfo && contactInfo.address}</div>
 							</div>
 							<div className="d-flex align-items-center mb-3">
 								<div className="icon-wrapper">
 									<FontAwesomeIcon icon={faPhone} className="mr-2" />
 								</div>
 								<div className="text-sm dark-color">
-									<a href="tel:+36303352266">+36 (30) 335-22-66</a>
+									<a href="tel:+36303352266">{contactInfo && contactInfo.phone}</a>
 								</div>
 							</div>
 							<div className="d-flex align-items-center mb-3">
@@ -105,7 +129,7 @@ const Shop = () => {
 									<FontAwesomeIcon icon={faEnvelope} className="mr-2" />
 								</div>
 								<div className="text-sm dark-color">
-									<a href="mailto:vira.tamas97@gmail.com">vira.tamas97@gmail.com</a>
+									<a href="mailto:vira.tamas97@gmail.com">{contactInfo && contactInfo.email}</a>
 								</div>
 							</div>
 						</div>
@@ -113,34 +137,15 @@ const Shop = () => {
 					<Col lg={6}>
 						<div className="open">
 							<div className="title text-black-50 font-weight-bold p-2 mb-3">Hours</div>
-							<div className="day dark-color d-flex justify-content-between mb-3">
-								<div>Monday</div>
-								<div>Delivery: 7:00 - 22:00</div>
-							</div>
-							<div className="day dark-color d-flex justify-content-between mb-3">
-								<div>Tuesday</div>
-								<div>Delivery: 7:00 - 22:00</div>
-							</div>
-							<div className="day dark-color d-flex justify-content-between mb-3">
-								<div>Wednesday</div>
-								<div>Delivery: 7:00 - 22:00</div>
-							</div>
-							<div className="day dark-color d-flex justify-content-between mb-3">
-								<div>Thursday</div>
-								<div>Delivery: 7:00 - 22:00</div>
-							</div>
-							<div className="day dark-color d-flex justify-content-between mb-3">
-								<div>Friday</div>
-								<div>Delivery: 7:00 - 22:00</div>
-							</div>
-							<div className="day dark-color d-flex justify-content-between mb-3">
-								<div>Saturday</div>
-								<div>closed</div>
-							</div>
-							<div className="day dark-color d-flex justify-content-between mb-3">
-								<div>Sunday</div>
-								<div>closed</div>
-							</div>
+							{open !== null &&
+								Object.entries(open).map(([key, value]) => {
+									return (
+										<div className="day dark-color d-flex justify-content-between mb-3">
+											<div>{key}</div>
+											<div>Delivery: {value}</div>
+										</div>
+									);
+								})}
 						</div>
 					</Col>
 				</Row>
@@ -149,4 +154,12 @@ const Shop = () => {
 	);
 };
 
-export default Shop;
+const mapStateToProps = (state, ownProps) => {
+	const id = parseInt(ownProps.match.params.id);
+	const loading = state.shop.loading;
+	const currentShop = state.shop.shops.find((shop) => shop.id === id);
+
+	return { loading, currentShop };
+};
+
+export default connect(mapStateToProps)(Shop);

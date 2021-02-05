@@ -18,12 +18,12 @@ import Profile from "./scense/Profile";
 export default function App() {
 	return (
 		<Provider store={store}>
-			<Router basename={process.env.REACT_APP_PUBLIC_URL}>
+			<Router>
 				<Switch>
-					<Route exact path={["/", "/shop", "/cart", "/profile"]}>
+					<Route exact path={["/", "/shop/:id", "/cart", "/profile"]}>
 						<SocketContext.Provider value={socket}>
 							<MainLayout>
-								<Route path="/shop" component={Shop} />
+								<Route path="/shop/:id" component={Shop} />
 								<Route path="/cart" component={CartPage} />
 								<Route path="/profile" component={Profile} />
 								<Route exact path="/" component={Home} />

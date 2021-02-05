@@ -21,8 +21,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import Button from "../../components/shared/Button";
 import { connect } from "react-redux";
-import { showSnackbar } from "../../redux/snackbar/actions";
-
+import { addFlashMessage } from "../../redux/flash/actions";
 import "./styles.scss";
 import { Link } from "react-router-dom";
 import { submitOrder } from "../../services/orders";
@@ -427,4 +426,4 @@ const mapStateToProps = (state) => ({
 	auth: state.auth,
 });
 
-export default connect(mapStateToProps, { showSnackbar })(CartPage);
+export default connect(mapStateToProps, { addFlashMessage })(CartPage);

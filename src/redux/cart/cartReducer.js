@@ -13,7 +13,7 @@ const cartReducer = (state = initialState, action) => {
 			return {
 				...state,
 				total: action.payload.total,
-				items: [...state.items, action.payload.item],
+				items: action.payload.cartitems,
 			};
 		}
 		case DELETE_ITEM: {
