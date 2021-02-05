@@ -22,10 +22,12 @@ import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import Button from "../../components/shared/Button";
 import { connect } from "react-redux";
 import { addFlashMessage } from "../../redux/flash/actions";
-import "./styles.scss";
 import { Link } from "react-router-dom";
-import { submitOrder } from "../../services/orders";
+import { submitOrder, checkFields } from "../../services/orders";
+import { deleteCart } from "../../redux/cart/actions";
+import { addOrder } from "../../redux/auth/actions";
 import { useCookies } from "react-cookie";
+import "./styles.scss";
 
 const CartPage = (props) => {
 	const [activeTab, setActiveTab] = useState("1");
@@ -57,15 +59,23 @@ const CartPage = (props) => {
 	useEffect(() => {
 		if (auth.isLoggedIn) {
 			async function loadActiveAddress() {
-				let active = await auth.user.addresses.find((address) => address.is_active === 1);
-				setActiveAddress(active);
-				delete active.is_active;
+				if (auth.user.addresses !== undefined && auth.user.addresses.length > 0) {
+					let active = await auth.user.addresses.find((address) => address.is_active === 1);
+					console.log(active);
+					setActiveAddress(active);
+					delete active.is_active;
 
-				setData({ ...data, address: active });
+					setData({ ...data, address: active });
+				} else {
+					setData({
+						...data,
+						address: { ...data.address, user_id: auth.user.id },
+					});
+				}
 			}
 			loadActiveAddress();
 		}
-	}, []);
+	}, [auth.isLoggedIn]);
 
 	const onHandleChange = (e) => {
 		setData({
@@ -98,30 +108,53 @@ const CartPage = (props) => {
 	const onHandleSubmit = (e) => {
 		e.preventDefault();
 
-		submitOrder(cart, data, token);
-
-		setData({
-			payment_option: "credit-card",
-			address: {
-				name: "",
-				street: "",
-				phone: "",
-				city: "",
-				postcode: "",
-			},
-			note: "",
-			promo_code: "",
-			card: {
-				number: "",
-				expires: "",
-				code: "",
-				name: "",
-			},
-		});
+		checkFields(data)
+			.then(() => {
+				submitOrder(cart, data, token).then((response) => {
+					props.addFlashMessage("Successful order submission");
+					setData({
+						payment_option: "credit-card",
+						address: {
+							name: "",
+							street: "",
+							phone: "",
+							city: "",
+							postcode: "",
+						},
+						note: "",
+						promo_code: "",
+						card: {
+							number: "",
+							expires: "",
+							code: "",
+							name: "",
+						},
+					});
+					props.addOrder(response);
+					props.deleteCart();
+				});
+			})
+			.catch((err) => {
+				props.addFlashMessage(err.message, "error");
+			});
 	};
 
 	const toggle = (tab) => {
 		if (activeTab !== tab) setActiveTab(tab);
+	};
+
+	const onCheckSlash = (e) => {
+		let value = data.card.expires;
+		if (data.card.expires.length == 2 && e.key !== "Backspace") {
+			value += "/";
+			setData((prevState) => ({
+				...prevState,
+				card: {
+					...data.card,
+					expires: value,
+				},
+			}));
+		}
 	};
 
 	return (
@@ -205,11 +238,13 @@ const CartPage = (props) => {
 															onChange={onChangeAddress}
 														/>
 													</Col>
-													<Col lg={6} className="text-center">
-														<Link to="/signin" className="red-color">
-															or Sign In
-														</Link>
-													</Col>
+													{!auth.isLoggedIn && (
+														<Col lg={6} className="text-center">
+															<Link to="/signin" className="red-color">
+																or Sign In
+															</Link>
+														</Col>
+													)}
 												</Row>
 											</div>
 										)}
@@ -311,10 +346,11 @@ const CartPage = (props) => {
 															required={
 																data.payment_option === "credit-card" ? true : false
 															}
+															value={data.card.number}
 															name="number"
 															id="card_number"
 															placeholder="1234 5678 1234 5678"
-															onChange={(e) => onHandleCardData(e)}
+															onChange={onHandleCardData}
 														/>
 													</FormGroup>
 												</Col>
@@ -331,10 +367,12 @@ const CartPage = (props) => {
 															required={
 																data.payment_option === "credit-card" ? true : false
 															}
+															value={data.card.expires}
 															name="expires"
 															id="expires"
 															placeholder="12/22"
-															onChange={(e) => onHandleCardData(e)}
+															onChange={onHandleCardData}
+															onKeyDown={onCheckSlash}
 														/>
 													</FormGroup>
 												</Col>
@@ -351,10 +389,11 @@ const CartPage = (props) => {
 															required={
 																data.payment_option === "credit-card" ? true : false
 															}
+															value={data.card.code}
 															name="code"
 															id="card_code"
 															placeholder="123"
-															onChange={(e) => onHandleCardData(e)}
+															onChange={onHandleCardData}
 														/>
 													</FormGroup>
 												</Col>
@@ -371,10 +410,11 @@ const CartPage = (props) => {
 															required={
 																data.payment_option === "credit-card" ? true : false
 															}
+															value={data.card.name}
 															name="name"
 															id="card_name"
 															placeholder="Jhon Doe"
-															onChange={(e) => onHandleCardData(e)}
+															onChange={onHandleCardData}
 														/>
 													</FormGroup>
 												</Col>
@@ -426,4 +466,4 @@ const mapStateToProps = (state) => ({
 	auth: state.auth,
 });
 
-export default connect(mapStateToProps, { addFlashMessage })(CartPage);
+export default connect(mapStateToProps, { addFlashMessage, deleteCart, addOrder })(CartPage);

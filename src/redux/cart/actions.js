@@ -1,4 +1,4 @@
-import { ADD_TO_CART, DELETE_ITEM, INCREMENT_ITEM_QUANTITY } from "./actionTypes";
+import { ADD_TO_CART, DELETE_CART, DELETE_ITEM, INCREMENT_ITEM_QUANTITY } from "./actionTypes";
 
 export const addToCart = (item, list) => {
 	let total = 0;
@@ -68,5 +68,11 @@ export const incrementItemQuantity = (item, list) => {
 			newList,
 			total,
 		},
+	};
+};
+
+export const deleteCart = () => {
+	return {
+		type: DELETE_CART,
 	};
 };

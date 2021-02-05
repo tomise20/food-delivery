@@ -34,7 +34,10 @@
 	}
 	.order-item {
 		width: 20%;
-		text-align: center;
+		text-align: left;
+	}
+	.order-item.id {
+		width: 10%;
 	}
 	.actions {
 		svg,
@@ -79,6 +82,16 @@
 		.inactive {
 			&:hover {
 				cursor: pointer;
+			}
+		}
+	}
+	.refresh {
+		&:hover {
+			color: $red-hover-color;
+			cursor: pointer;
+			svg,
+			path {
+				color: $red-hover-color;
 			}
 		}
 	}

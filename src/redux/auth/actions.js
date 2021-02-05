@@ -10,6 +10,13 @@ import {
 	SUCCESSFULLY_GET_USER,
 	FAILED_GET_USER,
 	DELETE_ADDRESS,
+	REQUEST_AUTH_REGISTER,
+	SUCCESS_AUTH_REGISTER,
+	FAILED_AUTH_REGISTER,
+	SUCCESS_REFRESH_ORDERS,
+	REQUEST_REFRESH_ORDERS,
+	FAILED_REFRESH_ORDERS,
+	ADD_ORDER,
 } from "./actionTypes";
 
 export const requestAuthLogin = () => {
@@ -57,6 +64,40 @@ export const authLogin = (username, password) => {
 	};
 };
 
+export const requestAuthRegister = () => {
+	return {
+		type: REQUEST_AUTH_REGISTER,
+	};
+};
+
+export const successAuthRegister = () => {
+	return {
+		type: SUCCESS_AUTH_REGISTER,
+	};
+};
+
+export const failedAuthRegister = (error) => {
+	return {
+		type: FAILED_AUTH_REGISTER,
+		payload: error,
+	};
+};
+
+export const authRegister = (data) => {
+	return (dispatch) => {
+		dispatch(requestAuthRegister());
+
+		axios
+			.post(`${process.env.REACT_APP_SERVER_URL}/register`, data)
+			.then((res) => {
+				dispatch(successAuthRegister());
+			})
+			.catch((err) => {
+				dispatch(failedAuthRegister(err.response.data));
+			});
+	};
+};
+
 export const requestGetUser = () => {
 	return {
 		type: REQUEST_GET_USER,
@@ -89,7 +130,7 @@ export const getUser = (token) => {
 			})
 			.then((res) => {
 				console.log(res.data);
-				dispatch(successAuthLogin(res.data));
+				dispatch(successfullyGetUser(res.data));
 			})
 			.catch((error) => {
 				const errorMsg = error.response.data.message;
@@ -165,5 +206,51 @@ export const deleteAddress = (addresses, addressId, token) => {
 export const authSignOut = () => {
 	return {
 		type: AUTH_SIGN_OUT,
+	};
+};
+
+export const requestRefreshOrders = () => {
+	return {
+		type: REQUEST_REFRESH_ORDERS,
+	};
+};
+
+export const successRefreshOrders = (orders) => {
+	return {
+		type: SUCCESS_REFRESH_ORDERS,
+		payload: orders,
+	};
+};
+
+export const failedRefreshOrders = (error) => {
+	return {
+		type: FAILED_REFRESH_ORDERS,
+		payload: error,
+	};
+};
+
+export const refreshOrders = (token) => {
+	return (dispatch) => {
+		dispatch(requestRefreshOrders());
+		axios
+			.get(`${process.env.REACT_APP_SERVER_URL}/user/refresh-orders`, {
+				headers: {
+					Authorization: `Bearer ${token}`,
+				},
+			})
+			.then((res) => {
+				console.log(res.data);
+				dispatch(successRefreshOrders(res.data));
+			})
+			.catch((err) => {
+				dispatch(failedRefreshOrders(err.message));
+			});
+	};
+};
+
+export const addOrder = (order) => {
+	return {
+		type: ADD_ORDER,
+		payload: order,
 	};
 };

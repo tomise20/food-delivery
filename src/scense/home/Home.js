@@ -18,6 +18,11 @@ const Home = ({ auth, popularProducts, getPopularProducts }) => {
 		}
 	}, []);
 
+	const getFormatDate = (date) => {
+		const result = new Date(date);
+		return result.toLocaleString("hu-HU", { dateStyle: "full" });
+	};
+
 	return (
 		<div id="home">
 			<div className="intro">
@@ -70,77 +75,28 @@ const Home = ({ auth, popularProducts, getPopularProducts }) => {
 							</Col>
 						</Row>
 						<Row>
-							<Col lg={3} xs={12} md={6}>
-								<div className="order mb-3 mb-lg-0">
-									<Link to="#">
-										<img
-											src="https://cdn.pixabay.com/photo/2018/04/13/17/14/vegetable-skewer-3317060_960_720.jpg"
-											className="img-fluid"
-										/>
-										<div className="p-2">
-											<p className="mb-0 font-weight-bold">Vegan Food</p>
-											<small>Just Vegan, Szeged</small>
-											<Link className="outline-btn btn-block btn mt-3 font-weight-bold">
-												Track order
-											</Link>
-										</div>
-									</Link>
-								</div>
-							</Col>
-							<Col lg={3} xs={12} md={6}>
-								<div className="order mb-3 mb-lg-0">
-									<Link to="#">
-										<img
-											src="https://cdn.pixabay.com/photo/2019/01/29/18/05/burger-3962997_960_720.jpg"
-											className="img-fluid"
-											alt="Cheeseburger"
-										/>
-										<div className="p-2">
-											<p className="mb-0 font-weight-bold">Cheeseburger</p>
-											<small>Love meet, Szeged</small>
-											<Link className="outline-btn btn-block btn mt-3 font-weight-bold">
-												Track order
-											</Link>
-										</div>
-									</Link>
-								</div>
-							</Col>
-							<Col lg={3} xs={12} md={6}>
-								<div className="order mb-3 mb-lg-0">
-									<Link to="#">
-										<img
-											src="https://cdn.pixabay.com/photo/2015/04/10/00/41/food-715542_960_720.jpg"
-											className="img-fluid"
-											alt="Hot pasta"
-										/>
-										<div className="p-2">
-											<p className="mb-0 font-weight-bold">Hot pasta</p>
-											<small>Chinese king, Szeged</small>
-											<Link className="outline-btn btn-block btn mt-3 font-weight-bold">
-												Track order
-											</Link>
-										</div>
-									</Link>
-								</div>
-							</Col>
-							<Col lg={3} xs={12} md={6}>
-								<div className="order mb-3 mb-lg-0">
-									<Link to="#">
-										<img
-											src="https://cdn.pixabay.com/photo/2018/10/25/19/15/goulash-3773134_960_720.jpg"
-											className="img-fluid"
-											alt="Goulash soup"
-										/>
-										<div className="p-2">
-											<p className="mb-0 font-weight-bold">Goulash soup</p>
-											<small>Nice restaurent, Szeged</small>
-											<Link className="outline-btn btn-block btn mt-3 font-weight-bold">
-												Track order
-											</Link>
-										</div>
-									</Link>
-								</div>
-							</Col>
+							{auth.user.orders.map((order) => (
+								<Col lg={3} xs={12} md={6}>
+									<div className="order mb-3 mb-lg-0">
+										<Link to="#">
+											<img
+												src="https://cdn.pixabay.com/photo/2018/04/13/17/14/vegetable-skewer-3317060_960_720.jpg"
+												className="img-fluid"
+											/>
+											<div className="p-2">
+												<p className="mb-0 font-weight-bold">Vegan Food</p>
+												<small>{getFormatDate(order.created_at)}</small>
+												<Link
+													to="/profile"
+													className="outline-btn btn-block btn mt-3 font-weight-bold"
+												>
+													Details
+												</Link>
+											</div>
+										</Link>
+									</div>
+								</Col>
+							))}
 						</Row>
 					</>
 				)}

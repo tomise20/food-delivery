@@ -16,16 +16,26 @@ import {
 	CustomInput,
 } from "reactstrap";
 import { connect } from "react-redux";
-import { authSignOut, addAddress, setActiveAddress, deleteAddress } from "../../redux/auth/actions";
-
-import "./styles.scss";
+import { authSignOut, addAddress, setActiveAddress, deleteAddress, refreshOrders } from "../../redux/auth/actions";
 import Button from "../../components/shared/Button";
 import OrderItem from "./OrderItem";
 import { Redirect } from "react-router-dom";
 import axios from "axios";
 import { useCookies } from "react-cookie";
+import { addFlashMessage } from "../../redux/flash/actions";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faRedo } from "@fortawesome/free-solid-svg-icons";
+import "./styles.scss";
 
-const Profile = ({ auth, authSignOut, addAddress, setActiveAddress, deleteAddress }) => {
+const Profile = ({
+	auth,
+	authSignOut,
+	addAddress,
+	setActiveAddress,
+	deleteAddress,
+	addFlashMessage,
+	refreshOrders,
+}) => {
 	const handleSignOut = () => {
 		authSignOut();
 	};
@@ -56,20 +66,32 @@ const Profile = ({ auth, authSignOut, addAddress, setActiveAddress, deleteAddres
 	};
 
 	const [modal, setModal] = useState(false);
-	const toggle = () => setModal(!modal);
+	const toggle = () => {
+		setAddress({
+			address_name: "",
+			name: "",
+			street: "",
+			postcode: "",
+			city: "",
+			country: "",
+			user_id: auth.user.id,
+			phone: "",
+			is_active: false,
+		});
+		setModal(!modal);
+	};
 
 	if (!auth.isLoggedIn) {
 		return <Redirect to="/" />;
 	}
 
-	const onSubmit = (e) => {
+	const onSubmit = async (e) => {
 		e.preventDefault();
-		setAddress({ ...address, user_id: auth.user.id });
 
 		axios
 			.post(`${process.env.REACT_APP_SERVER_URL}/user/store-address`, address, {
 				headers: {
-					Authorization: `Bearer ${auth.user.accessToken}`,
+					Authorization: `Bearer ${token}`,
 				},
 			})
 			.then((res) => {
@@ -92,7 +114,15 @@ const Profile = ({ auth, authSignOut, addAddress, setActiveAddress, deleteAddres
 	};
 
 	const onDeleteAddress = (addressId) => {
+		if (auth.user.addresses.length == 1) {
+			addFlashMessage("Minimum 1 shipping address is required!", "error");
+			return;
+		}
 		deleteAddress(auth.user.addresses, addressId, token);
+	};
+
+	const onRefreshOrders = () => {
+		refreshOrders(token);
 	};
 
 	return (
@@ -103,18 +133,23 @@ const Profile = ({ auth, authSignOut, addAddress, setActiveAddress, deleteAddres
 			<Container>
 				<Row>
 					<Col lg={12}>
-						<h1 className="font-weight-bold mb-3">Order history</h1>
+						<h1 className="font-weight-bold mb-3" id="order-history">
+							Order history
+						</h1>
 						<div className="d-flex flex-column w-100">
-							<div className="d-flex header">
+							<div className="d-flex header px-4">
 								<div className="order-item">#</div>
 								<div className="order-item">Date</div>
 								<div className="order-item">Status</div>
 								<div className="order-item">Total</div>
-								<div className="order-item">Actions</div>
+								<div className="order-item text-center">Actions</div>
 							</div>
-							<OrderItem />
-							<OrderItem />
-							<OrderItem />
+							{auth.user.orders.length > 0 &&
+								auth.user.orders.map((order) => <OrderItem key={order.id} order={order} />)}
+						</div>
+						<div className="red-color mt-2 refresh" onClick={onRefreshOrders}>
+							<FontAwesomeIcon icon={faRedo} className="mr-2 red-color" onClick={onRefreshOrders} />
+							refresh orders
 						</div>
 
 						<div className="profile-info">
@@ -324,4 +359,11 @@ const mapStateToProps = (state) => ({
 	auth: state.auth,
 });
 
-export default connect(mapStateToProps, { authSignOut, addAddress, setActiveAddress, deleteAddress })(Profile);
+export default connect(mapStateToProps, {
+	authSignOut,
+	addAddress,
+	setActiveAddress,
+	deleteAddress,
+	addFlashMessage,
+	refreshOrders,
+})(Profile);

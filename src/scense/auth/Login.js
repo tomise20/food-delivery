@@ -39,11 +39,14 @@ const Login = ({ authLogin, auth }) => {
 					<div className="left-side w-50 d-none d-lg-block"></div>
 					<div className="right-side w-50 position-relative">
 						<div className="login-card p-4">
-							<div className="title font-weight-bold mb-4">Sign in with your Quickmunch account</div>
+							<div className="title font-weight-bold mb-3">Sign in with your account</div>
 							{auth.error && <div className="text-center red-color">{auth.error}</div>}
+							{auth.successRegister && (
+								<div className="text-center text-success mb-3">Successfully regiter, please login.</div>
+							)}
 							<form onSubmit={(e) => onSignin(e)}>
 								<FormGroup>
-									<Label>E-mail or username</Label>
+									<Label>E-mail</Label>
 									<Input type="text" name="username" onChange={(e) => handleChange(e)} required />
 								</FormGroup>
 								<FormGroup>
@@ -80,7 +83,7 @@ const Login = ({ authLogin, auth }) => {
 									<span className="my-4">or</span>
 								</FormGroup>
 								<FormGroup className="text-center">
-									<Link to="#" className="red-color">
+									<Link to="/signup" className="red-color">
 										Create your account
 									</Link>
 								</FormGroup>

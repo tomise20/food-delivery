@@ -30,7 +30,7 @@ const Cuisine = ({ shops }) => {
 		>
 			{shops.map((shop) => (
 				<SwiperSlide key={shop.id}>
-					<Link to={`/shop/${shop.id}`}>
+					<Link to={`/shops/${shop.id}`}>
 						<div className="cuisine-item text-center">
 							<img src={shop.shop_image} className="mb-2" alt={shop.name} />
 							<p>{shop.name}</p>
