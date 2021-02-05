@@ -14,16 +14,19 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import PageNotFound from "./scense/404/PageNotFound";
 import { SocketContext, socket } from "./context/socket";
 import Profile from "./scense/Profile";
+import Register from "./scense/auth/Register";
+import ShopList from "./scense/Shop/ShopList";
 
 export default function App() {
 	return (
 		<Provider store={store}>
 			<Router>
 				<Switch>
-					<Route exact path={["/", "/shop/:id", "/cart", "/profile"]}>
+					<Route exact path={["/", "/shops/:id", "/cart", "/profile", "/shops"]}>
 						<SocketContext.Provider value={socket}>
 							<MainLayout>
-								<Route path="/shop/:id" component={Shop} />
+								<Route exact path="/shops" component={ShopList} />
+								<Route exact path="/shops/:id" component={Shop} />
 								<Route path="/cart" component={CartPage} />
 								<Route path="/profile" component={Profile} />
 								<Route exact path="/" component={Home} />
@@ -31,9 +34,10 @@ export default function App() {
 						</SocketContext.Provider>
 					</Route>
 
-					<Route exact path={["/signin"]}>
+					<Route exact path={["/signin", "/signup"]}>
 						<AuthLayout>
 							<Route path="/signin" component={Login} />
+							<Route path="/signup" component={Register} />
 						</AuthLayout>
 					</Route>
 					<Route path="*" component={PageNotFound} />

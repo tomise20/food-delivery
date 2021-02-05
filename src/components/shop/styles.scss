@@ -71,3 +71,49 @@
 		}
 	}
 }
+
+/* shop list */
+.shop-list {
+	.custom-switch,
+	.custom-control-label {
+		&:hover {
+			cursor: pointer;
+		}
+	}
+}
+
+/* shop list item */
+.shop-item {
+	border-bottom: 1px solid #ccc;
+	padding: 15px 10px;
+	&:hover {
+		background-color: #f8f8f8;
+		cursor: pointer;
+	}
+	.shop-name {
+		width: 30%;
+	}
+	.shop-raiting {
+		width: 10%;
+	}
+	.shop-delivery {
+		width: 20%;
+	}
+	.shop-order {
+		width: 20%;
+	}
+	.shop-desc {
+		font-size: 14px;
+		max-width: 90%;
+	}
+	img {
+		width: 100px;
+		height: 100px;
+		object-fit: cover;
+		object-position: center;
+	}
+	.shop-type {
+		max-width: 300px;
+		display: inline-block;
+	}
+}
