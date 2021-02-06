@@ -12,72 +12,67 @@ const Chat = () => {
 	const socket = useContext(SocketContext);
 	const [input, setInput] = useState("");
 	const [messages, setMessages] = useState([]);
-	const [isAdminJoinned, setIsAdminJoinned] = useState(false);
-	const [joined, setJoined] = useState(false);
-	const [roomId, setRoomId] = useState(uuid_v4());
-
-	const handleInviteAccepted = useCallback(() => {
-		setJoined(true);
-	}, []);
+	const [adminSocketId, setAdminSocketId] = useState(null);
+	const [openChat, setOpenChat] = useState(false);
 
 	const handleJoinChat = () => {
-		socket.emit("user join", roomId);
+		setOpenChat(true);
 	};
 
+	const handleAdminJoined = useCallback((socketId) => {
+		if (adminSocketId === null) setAdminSocketId(socketId);
+	}, []);
+
 	useEffect(() => {
-		socket.on("join accepted", handleInviteAccepted);
+		socket.on("admin joined", (socketId) => handleAdminJoined(socketId));
 
 		return () => {
-			socket.off("join accepted", handleInviteAccepted);
+			socket.off("admin joined");
 		};
 	}, [socket]);
 
 	const sendMessage = () => {
 		setMessages([
-			...messages,
 			{
 				sender: "user",
 				content: input,
 			},
+			...messages,
 		]);
 
-		console.log(roomId);
-
-		if(isAdminJoinned) {
-			socket.emit("private message", roomId, input);
+		if (adminSocketId !== null) {
+			socket.emit("private message", adminSocketId, input);
 		} else {
-			socket.emit("open new chat", roomId, input);
+			socket.emit("open new chat", input);
 		}
 
 		setInput("");
 	};
 
-	socket.on("private message", (senderSocketId, msg) => {
+	socket.on("private message", (socketId, msg) => {
 		setMessages([
-			...messages,
 			{
-				sender: senderSocketId,
+				sender: "admin",
 				content: msg,
 			},
+			...messages,
 		]);
 	});
 
 	const handleEnter = (e) => {
 		if (e.key === "Enter") {
 			setMessages([
-				...messages,
 				{
 					sender: "user",
 					content: input,
 				},
+				...messages,
 			]);
 
-			console.log(roomId);
-
-			if(isAdminJoinned) {
-				socket.emit("private message", roomId, input);
+			if (adminSocketId !== null) {
+				socket.emit("private message", adminSocketId, input);
 			} else {
-				socket.emit("open new chat", roomId, input);
+				socket.emit("open new chat", input);
 			}
 
 			setInput("");
@@ -93,13 +88,14 @@ const Chat = () => {
 			<Tooltip placement="right" isOpen={tooltipOpen} target="chatTooltip" toggle={toggle}>
 				Help desk chat
 			</Tooltip>
-			<div className={`chat ${joined ? "active" : ""}`}>
+			<div className={`chat ${openChat ? "active" : ""}`}>
 				<div className="chat-header p-2 font-weight-bold dark-color border-bottom">
 					Food Delivery Support Team
 				</div>
 				<div className="chat-body d-flex flex-column flex-column-reverse pt-3 px-2">
-					{messages.map((message) => (
+					{messages.map((message, index) => (
 						<div
+							key={index}
 							className={`message-wrapper d-flex ${
 								message.sender == "user" ? "justify-content-end" : "left"
 							}`}

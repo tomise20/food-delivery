@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Link, Redirect } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch, faShoppingBag, faChevronDown, faUserCog, faSignOutAlt } from "@fortawesome/free-solid-svg-icons";
@@ -21,7 +21,6 @@ const Menu = (props) => {
 	const [isOpen, setIsOpen] = useState(false);
 	const toggle = () => setIsOpen(!isOpen);
 	const [search, setSearch] = useState("");
-	const [submit, setSubmit] = useState(false);
 
 	const onSignOut = () => {
 		props.authSignOut();
@@ -33,12 +32,10 @@ const Menu = (props) => {
 
 	const onSubmit = (e) => {
 		e.preventDefault();
-		setSubmit(true);
 	};
 
 	return (
 		<>
-			{submit && <Redirect to={{ pathname: "/shops", search: `?s=${search}` }} />}
 			<Navbar color="light" className="sticky-nav bg-white" light expand="md">
 				<Link to="/" className="brand red-color">
 					Food Delivery
