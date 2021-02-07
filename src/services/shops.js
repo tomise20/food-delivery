@@ -1,8 +1,7 @@
 export const filterShops = async (shops, filters) => {
 	return await shops.filter((shop) => {
 		let isFiltered = true;
-		console.log(filters);
-		if (filters.search.length > 2) {
+		if (filters.search !== undefined && filters.search.length > 2) {
 			const name = shop.name.toLowerCase();
 			const search = filters.search.toLowerCase();
 			if (!name.includes(search)) return null;

@@ -7,9 +7,11 @@
 	z-index: 99 !important;
 	box-shadow: 0 0 0 1px rgba(67, 41, 163, 0.1), 0 1px 8px 0 rgba(67, 41, 163, 0.1);
 }
-svg,
-path {
-	color: $red-color;
+.navbar-collapse {
+	svg,
+	path {
+		color: $red-color;
+	}
 }
 #header-search-input {
 	width: 300px;
@@ -42,7 +44,7 @@ path {
 	&:hover {
 		svg,
 		path {
-			color: #c30012;
+			color: $red-hover-color;
 		}
 	}
 }
@@ -56,13 +58,13 @@ path {
 		}
 		.profile {
 			.name {
-				color: #c30012 !important;
+				color: $red-hover-color !important;
 			}
 		}
 	}
 	.account-menu {
 		position: absolute;
-		top: 42px;
+		top: 56px;
 		opacity: 0;
 		user-select: none;
 		right: -100px;
@@ -75,10 +77,10 @@ path {
 		.account-item {
 			&:hover {
 				cursor: pointer;
-				color: #c30012 !important;
+				color: $red-hover-color !important;
 				svg,
 				path {
-					color: #c30012 !important;
+					color: $red-hover-color !important;
 				}
 			}
 		}
@@ -86,12 +88,13 @@ path {
 }
 .float-cart {
 	position: fixed;
-	top: 60px;
-	right: -350px;
-	width: 350px;
+	top: 56px;
+	right: -360px;
+	width: 360px;
 	height: auto;
 	background-color: $light-color;
-	border-radius: 4px;
+	border-top-left-radius: 4px;
+	border-bottom-left-radius: 4px;
 	z-index: 100;
 	transition: right 0.5s;
 	border-left: 1px solid #cecece;
@@ -127,11 +130,12 @@ path {
 		flex-basis: 50px;
 	}
 	.delete {
-		&:hover {
-			path,
-			svg {
+		path,
+		svg {
+			color: #000;
+			&:hover {
 				transition: color 0.5s;
-				color: $red-color;
+				color: red;
 				cursor: pointer;
 			}
 		}

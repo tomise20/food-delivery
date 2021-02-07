@@ -17,6 +17,8 @@ import {
 	REQUEST_REFRESH_ORDERS,
 	FAILED_REFRESH_ORDERS,
 	ADD_ORDER,
+	SUCCESS_GET_LOCATION,
+	FAILED_GET_LOCATION,
 } from "./actionTypes";
 
 export const requestAuthLogin = () => {
@@ -60,6 +62,33 @@ export const authLogin = (username, password) => {
 					console.log("lefut");
 					dispatch(failedAuthLogin(errorMsg));
 				}
+			});
+	};
+};
+
+export const successGetUserLocation = (location) => {
+	return {
+		type: SUCCESS_GET_LOCATION,
+		payload: location,
+	};
+};
+
+export const failedGetUserLocation = () => {
+	return {
+		type: FAILED_GET_LOCATION,
+		payload: "Location determination failed",
+	};
+};
+
+export const getUserLocation = () => {
+	return (dispatch) => {
+		axios
+			.get(`${process.env.REACT_APP_SERVER_URL}/get-iplocation`)
+			.then((res) => {
+				dispatch(successGetUserLocation(res.data));
+			})
+			.catch((err) => {
+				dispatch(failedGetUserLocation());
 			});
 	};
 };

@@ -1,22 +1,39 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { Container, Row, Col, Input, Button } from "reactstrap";
 import "swiper/swiper.scss";
 import "./styles.scss";
 import Cuisine from "../../components/cuisines/Cuisine";
 import { connect } from "react-redux";
-import { fetchShops } from "../../redux/shops/actions";
 import { getPopularProducts } from "../../redux/products/actions";
+import { getUserLocation } from "../../redux/auth/actions";
+import { addFlashMessage } from "../../redux/flash/actions";
 
 import introImage from "../../images/intro-image.jpg";
 import ProductList from "../../components/products/ProductList";
 
-const Home = ({ auth, popularProducts, getPopularProducts }) => {
+const Home = ({ auth, popularProducts, getPopularProducts, getUserLocation, addFlashMessage, prevOrders }) => {
+	const [location, setLocation] = useState(auth.location);
+
 	useEffect(() => {
 		if (popularProducts.length === 0) {
 			getPopularProducts();
 		}
 	}, []);
+
+	useEffect(() => {
+		if (auth.location === "") {
+			getUserLocation();
+		} else {
+			setLocation(auth.location);
+		}
+
+		if (auth.error !== "") {
+			addFlashMessage(auth.error, "error");
+		}
+	}, [auth]);
+
+	const handleLocationChange = (e) => setLocation(e.target.value);
 
 	const getFormatDate = (date) => {
 		const result = new Date(date);
@@ -34,13 +51,16 @@ const Home = ({ auth, popularProducts, getPopularProducts }) => {
 								<Col lg={6} className="position-relative">
 									<div className="intro-content py-4">
 										<h2 className="font-weight-bold dark-color mb-3">
-											Find Szeged city restaurants near you and order online for free.
+											Find your city restaurants near you and order online for free.
 										</h2>
 										<p className="mb-0">find a location near you</p>
 										<Row form className="align-items-center">
 											<Col md={8} xs={12}>
 												<Input
-													placeholder="Békéscsaba Bartók Béla utca 21"
+													type="search"
+													onChange={handleLocationChange}
+													value={location}
+													placeholder="Szeged"
 													className="mt-3 mt-md-0"
 												/>
 											</Col>
@@ -71,11 +91,11 @@ const Home = ({ auth, popularProducts, getPopularProducts }) => {
 					<>
 						<Row className="mt-5">
 							<Col xs={12}>
-								<h2 className="mb-4">Your previous orders</h2>
+								<h2 className="mb-4">Your previous 4 orders</h2>
 							</Col>
 						</Row>
 						<Row>
-							{auth.user.orders.map((order) => (
+							{prevOrders.map((order) => (
 								<Col lg={3} xs={12} md={6}>
 									<div className="order mb-3 mb-lg-0">
 										<Link to="#">
@@ -163,7 +183,8 @@ const Home = ({ auth, popularProducts, getPopularProducts }) => {
 
 const mapStateToProps = (state) => ({
 	popularProducts: state.product.popularProducts,
+	prevOrders: state.auth.user.orders ? state.auth.user.orders.slice(0, 4) : null,
 	auth: state.auth,
 });
 
-export default connect(mapStateToProps, { fetchShops, getPopularProducts })(Home);
+export default connect(mapStateToProps, { getPopularProducts, getUserLocation, addFlashMessage })(Home);

@@ -16,6 +16,8 @@ import {
 	SUCCESS_REFRESH_ORDERS,
 	FAILED_REFRESH_ORDERS,
 	ADD_ORDER,
+	SUCCESS_GET_LOCATION,
+	FAILED_GET_LOCATION,
 } from "./actionTypes";
 
 const initialState = {
@@ -27,6 +29,7 @@ const initialState = {
 		email: "",
 		updated_at: "",
 	},
+	location: "",
 	isLoggedIn: false,
 	successRegister: false,
 	loading: false,
@@ -55,6 +58,18 @@ const AuthReducer = (state = initialState, action) => {
 				...state,
 				loading: false,
 				user: {},
+				error: action.payload,
+			};
+		}
+		case SUCCESS_GET_LOCATION: {
+			return {
+				...state,
+				location: action.payload,
+			};
+		}
+		case FAILED_GET_LOCATION: {
+			return {
+				...state,
 				error: action.payload,
 			};
 		}
