@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import Chat from "../components/Chat/Chat";
 import Footer from "../components/footer/Footer";
 import Header from "../components/header/Header";
@@ -13,6 +13,7 @@ import "react-toastify/dist/ReactToastify.css";
 toast.configure();
 const MainLayout = ({ getUser, auth, children, deleteFlashMessage, flash, shops, fetchShops, shopError }) => {
 	const [cookies] = useCookies(["token"]);
+	const [loading, setLoading] = useState(true);
 	const token = cookies.token;
 
 	useEffect(() => {
@@ -53,7 +54,20 @@ const MainLayout = ({ getUser, auth, children, deleteFlashMessage, flash, shops,
 				}
 			});
 		}
+
+		setLoading(false);
 	}, [flash, shops]);
+
+	if (loading) {
+		return (
+			<div className="loading-screen">
+				<div className="content">
+					<div style={{ color: "#fff" }}>Wait a moment while we load your data.</div>
+					<div className="loading-dot">.</div>
+				</div>
+			</div>
+		);
+	}
 
 	return (
 		<Fragment>
