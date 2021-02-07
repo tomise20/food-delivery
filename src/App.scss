@@ -18,7 +18,7 @@ a {
 	color: $red-color;
 }
 a.red-color:hover {
-	color: #c30012;
+	color: $red-hover-color;
 }
 .dark-color {
 	color: $dark-color;
@@ -28,8 +28,8 @@ a.red-color:hover {
 	color: $light-color !important;
 	border-color: $red-color !important;
 	&:hover {
-		background-color: #c30012 !important;
-		border-color: #c30012 !important;
+		background-color: $red-hover-color !important;
+		border-color: $red-hover-color !important;
 	}
 }
 .text-sm {

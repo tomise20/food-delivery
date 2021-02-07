@@ -16,11 +16,13 @@ import { SocketContext, socket } from "./context/socket";
 import Profile from "./scense/Profile";
 import Register from "./scense/auth/Register";
 import ShopList from "./scense/Shop/ShopList";
+import ScrollToTop from "./components/ScrollToTop";
 
 export default function App() {
 	return (
 		<Provider store={store}>
 			<Router>
+				<ScrollToTop />
 				<Switch>
 					<Route exact path={["/", "/shops/:id", "/cart", "/profile", "/shops"]}>
 						<SocketContext.Provider value={socket}>
