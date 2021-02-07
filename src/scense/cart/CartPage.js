@@ -22,7 +22,7 @@ import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import Button from "../../components/shared/Button";
 import { connect } from "react-redux";
 import { addFlashMessage } from "../../redux/flash/actions";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { submitOrder, checkFields } from "../../services/orders";
 import { deleteCart } from "../../redux/cart/actions";
 import { addOrder } from "../../redux/auth/actions";
@@ -30,6 +30,7 @@ import { useCookies } from "react-cookie";
 import "./styles.scss";
 
 const CartPage = (props) => {
+	let history = useHistory();
 	const [activeTab, setActiveTab] = useState("1");
 	const [cookies] = useCookies(["token"]);
 	const token = cookies.token;
@@ -59,11 +60,10 @@ const CartPage = (props) => {
 	useEffect(() => {
 		if (auth.isLoggedIn) {
 			async function loadActiveAddress() {
+				console.log(auth.user.addresses);
 				if (auth.user.addresses !== undefined && auth.user.addresses.length > 0) {
 					let active = await auth.user.addresses.find((address) => address.is_active === 1);
-					console.log(active);
 					setActiveAddress(active);
-					delete active.is_active;
 
 					setData({ ...data, address: active });
 				} else {
@@ -132,6 +132,7 @@ const CartPage = (props) => {
 					});
 					props.addOrder(response);
 					props.deleteCart();
+					history.push("/");
 				});
 			})
 			.catch((err) => {
@@ -435,11 +436,11 @@ const CartPage = (props) => {
 							<Row>
 								<Col xs={12}>
 									{props.cart.items.length > 0 ? (
-										<Button small block classes="btn-success btn mb-3" type="submit">
+										<Button small block classes="red-btn btn mb-3" type="submit">
 											Place Your Order
 										</Button>
 									) : (
-										<Button small block disabled classes="btn-success btn mb-3">
+										<Button small block disabled classes="red-btn btn mb-3">
 											Place Your Order
 										</Button>
 									)}
