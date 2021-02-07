@@ -11,19 +11,19 @@ import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 toast.configure();
-const MainLayout = ({ getUser, auth, children, deleteFlashMessage, flash, shops, fetchShops }) => {
+const MainLayout = ({ getUser, auth, children, deleteFlashMessage, flash, shops, fetchShops, shopError }) => {
 	const [cookies] = useCookies(["token"]);
 	const token = cookies.token;
 
 	useEffect(() => {
 		async function checkUser() {
-			if (token !== undefined && auth.isLoggedIn === false) {
+			if (token !== undefined && auth.isLoggedIn === false && auth.error === "") {
 				await getUser(token);
 			}
 		}
 		checkUser();
 
-		if (shops.length === 0) {
+		if (shops.length === 0 && shopError === "") {
 			fetchShops();
 		}
 
@@ -69,6 +69,7 @@ const mapStateToProps = (state) => ({
 	auth: state.auth,
 	flash: state.flash.messages,
 	shops: state.shop.shops,
+	shopError: state.shop.error,
 });
 
 export default connect(mapStateToProps, { getUser, deleteFlashMessage, fetchShops })(MainLayout);

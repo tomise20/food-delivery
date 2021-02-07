@@ -4,8 +4,9 @@ import { connect } from "react-redux";
 import ShopListItem from "../../components/shop/ShopListItem";
 import { filterShops } from "../../services/shops";
 import { useLocation } from "react-router-dom";
+import { fetchShops } from "../../redux/shops/actions";
 
-const ShopList = ({ shops, location }) => {
+const ShopList = ({ shops, location, loading, fetchShops }) => {
 	const keyword = location.search.split("=");
 	const { search } = useLocation();
 	const [filteredShops, setFilteredShops] = useState(shops);
@@ -24,14 +25,29 @@ const ShopList = ({ shops, location }) => {
 	};
 
 	useEffect(() => {
+		if (shops.length === 0) {
+			fetchShops();
+		}
+
 		filterShops(shops, filters).then((res) => {
 			setFilteredShops(res);
 		});
-	}, [filters]);
+	}, [filters, shops]);
 
 	useEffect(() => {
 		setFilters({ ...filters, search: keyword[1] });
 	}, [search]);
+
+	if (loading) {
+		return (
+			<div className="loading-screen">
+				<div className="content">
+					<div style={{ color: "#fff" }}>Wait a moment while we load your data.</div>
+					<div className="loading-dot">.</div>
+				</div>
+			</div>
+		);
+	}
 
 	return (
 		<div className="shop-list">
@@ -98,6 +114,7 @@ const ShopList = ({ shops, location }) => {
 
 const mapStateToProps = (state) => ({
 	shops: state.shop.shops,
+	loading: state.shop.loading,
 });
 
-export default connect(mapStateToProps)(ShopList);
+export default connect(mapStateToProps, { fetchShops })(ShopList);

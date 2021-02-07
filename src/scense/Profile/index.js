@@ -122,8 +122,20 @@ const Profile = ({
 	};
 
 	const onRefreshOrders = () => {
-		refreshOrders(token);
+		refreshOrders();
+		addFlashMessage("Successfull refresh data!");
 	};
+
+	if (auth.loading) {
+		return (
+			<div className="loading-screen">
+				<div className="content">
+					<div style={{ color: "#fff" }}>Wait a moment while we load your data.</div>
+					<div className="loading-dot">.</div>
+				</div>
+			</div>
+		);
+	}
 
 	return (
 		<div className="profile">

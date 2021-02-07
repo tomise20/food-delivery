@@ -158,6 +158,17 @@ const CartPage = (props) => {
 		}
 	};
 
+	if (auth.loading) {
+		return (
+			<div className="loading-screen">
+				<div className="content">
+					<div style={{ color: "#fff" }}>Wait a moment while we load your data.</div>
+					<div className="loading-dot">.</div>
+				</div>
+			</div>
+		);
+	}
+
 	return (
 		<Container fluid className="mt-5" id="cart-page">
 			<Row>
