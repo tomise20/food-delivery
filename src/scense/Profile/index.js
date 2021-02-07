@@ -16,15 +16,22 @@ import {
 	CustomInput,
 } from "reactstrap";
 import { connect } from "react-redux";
-import { authSignOut, addAddress, setActiveAddress, deleteAddress, refreshOrders } from "../../redux/auth/actions";
+import {
+	authSignOut,
+	addAddress,
+	setActiveAddress,
+	deleteAddress,
+	refreshOrders,
+	updateAddress,
+} from "../../redux/auth/actions";
 import Button from "../../components/shared/Button";
 import OrderItem from "./OrderItem";
 import { Redirect } from "react-router-dom";
-import axios from "axios";
 import { useCookies } from "react-cookie";
 import { addFlashMessage } from "../../redux/flash/actions";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faRedo } from "@fortawesome/free-solid-svg-icons";
+import { onSaveAddress, onUpdateAddress, onDeleteAddress, onRefreshOrders } from "../../services/auth";
 import "./styles.scss";
 
 const Profile = ({
@@ -35,11 +42,8 @@ const Profile = ({
 	deleteAddress,
 	addFlashMessage,
 	refreshOrders,
+	updateAddress,
 }) => {
-	const handleSignOut = () => {
-		authSignOut();
-	};
-
 	const [address, setAddress] = useState({
 		address_name: "",
 		name: "",
@@ -51,8 +55,15 @@ const Profile = ({
 		phone: "",
 		is_active: false,
 	});
-	const [cookies] = useCookies(["token"]);
+	const [cookies, setCookies, removeCookie] = useCookies(["token"]);
+	const [modal, setModal] = useState(false);
+	const [isEdit, setIsEdit] = useState(false);
 	const token = cookies.token;
+
+	const handleSignOut = () => {
+		removeCookie("token");
+		authSignOut();
+	};
 
 	const handleChange = (e) => {
 		setAddress({ ...address, [e.target.name]: e.target.value });
@@ -65,7 +76,6 @@ const Profile = ({
 		});
 	};
 
-	const [modal, setModal] = useState(false);
 	const toggle = () => {
 		setAddress({
 			address_name: "",
@@ -81,26 +91,35 @@ const Profile = ({
 		setModal(!modal);
 	};
 
-	if (!auth.isLoggedIn) {
+	if (!auth.isLoggedIn && token === undefined) {
 		return <Redirect to="/" />;
 	}
 
 	const onSubmit = async (e) => {
 		e.preventDefault();
 
-		axios
-			.post(`${process.env.REACT_APP_SERVER_URL}/user/store-address`, address, {
-				headers: {
-					Authorization: `Bearer ${token}`,
-				},
-			})
-			.then((res) => {
-				addAddress(res.data);
-				setModal(false);
-			})
-			.catch((err) => {
-				console.log(err.message);
-			});
+		if (isEdit) {
+			onUpdateAddress(address, token)
+				.then(() => {
+					updateAddress(auth.user.addresses, address);
+					addFlashMessage("Address successfully updated!");
+					setIsEdit(false);
+					setModal(false);
+				})
+				.catch((err) => {
+					addFlashMessage("Error, please try again!", "error");
+				});
+		} else {
+			onSaveAddress(address, token)
+				.then((res) => {
+					addAddress(res);
+					addFlashMessage("Successfull save!");
+					setModal(false);
+				})
+				.catch((err) => {
+					addFlashMessage("Error, please try again!", "error");
+				});
+		}
 	};
 
 	const onSetActive = (addressId) => {
@@ -111,19 +130,33 @@ const Profile = ({
 		const editAddress = await auth.user.addresses.find((addr, index) => index === editAdrIndex);
 		setAddress(editAddress);
 		setModal(true);
+		setIsEdit(true);
 	};
 
-	const onDeleteAddress = (addressId) => {
+	const handleDelete = (addressId) => {
 		if (auth.user.addresses.length == 1) {
 			addFlashMessage("Minimum 1 shipping address is required!", "error");
 			return;
 		}
-		deleteAddress(auth.user.addresses, addressId, token);
+		onDeleteAddress(addressId, token)
+			.then((res) => {
+				deleteAddress(res);
+				addFlashMessage("Address is successfully deleted!");
+			})
+			.catch((err) => {
+				addFlashMessage("Error, please try again!", "error");
+			});
 	};
 
-	const onRefreshOrders = () => {
-		refreshOrders();
-		addFlashMessage("Successfull refresh data!");
+	const handleRefresh = () => {
+		onRefreshOrders(token)
+			.then((res) => {
+				refreshOrders(res);
+				addFlashMessage("Successfull refresh data!");
+			})
+			.catch(() => {
+				addFlashMessage("Error, please try again!", "error");
+			});
 	};
 
 	if (auth.loading) {
@@ -149,7 +182,7 @@ const Profile = ({
 							Order history
 						</h1>
 						<div className="d-flex flex-column w-100">
-							<div className="d-flex header px-4">
+							<div className="d-none d-md-flex header px-4">
 								<div className="order-item">#</div>
 								<div className="order-item">Date</div>
 								<div className="order-item">Status</div>
@@ -159,8 +192,8 @@ const Profile = ({
 							{auth.user.orders.length > 0 &&
 								auth.user.orders.map((order) => <OrderItem key={order.id} order={order} />)}
 						</div>
-						<div className="red-color mt-2 refresh" onClick={onRefreshOrders}>
-							<FontAwesomeIcon icon={faRedo} className="mr-2 red-color" onClick={onRefreshOrders} />
+						<div className="red-color mt-2 refresh" onClick={handleRefresh}>
+							<FontAwesomeIcon icon={faRedo} className="mr-2 red-color" />
 							refresh orders
 						</div>
 
@@ -208,7 +241,7 @@ const Profile = ({
 															<Button
 																type="button"
 																classes="btn btn-danger btn-sm px-4"
-																onclick={() => onDeleteAddress(address.id)}
+																onclick={() => handleDelete(address.id)}
 															>
 																Delete
 															</Button>
@@ -378,4 +411,5 @@ export default connect(mapStateToProps, {
 	deleteAddress,
 	addFlashMessage,
 	refreshOrders,
+	updateAddress,
 })(Profile);

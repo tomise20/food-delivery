@@ -13,12 +13,11 @@ import {
 	REQUEST_AUTH_REGISTER,
 	SUCCESS_AUTH_REGISTER,
 	FAILED_AUTH_REGISTER,
-	SUCCESS_REFRESH_ORDERS,
-	REQUEST_REFRESH_ORDERS,
-	FAILED_REFRESH_ORDERS,
+	REFRESH_ORDERS,
 	ADD_ORDER,
 	SUCCESS_GET_LOCATION,
 	FAILED_GET_LOCATION,
+	UPDATE_ADDRESS,
 } from "./actionTypes";
 
 export const requestAuthLogin = () => {
@@ -167,10 +166,10 @@ export const getUser = (token) => {
 	};
 };
 
-export const addAddress = (address) => {
+export const addAddress = (addresses) => {
 	return {
 		type: ADD_ADDRESS,
-		payload: address,
+		payload: addresses,
 	};
 };
 
@@ -206,28 +205,10 @@ export const setActiveAddress = (userId, addressId, token) => {
 	};
 };
 
-export const successfullyDeleteAddress = (addresses) => {
+export const deleteAddress = (addresses) => {
 	return {
 		type: DELETE_ADDRESS,
 		payload: addresses,
-	};
-};
-
-export const deleteAddress = (addresses, addressId, token) => {
-	return (dispatch) => {
-		axios
-			.delete(`${process.env.REACT_APP_SERVER_URL}/user/${addressId}/delete-address`, {
-				headers: {
-					Authorization: `Bearer ${token}`,
-				},
-			})
-			.then((res) => {
-				const newAddresses = addresses.filter((address) => address.id !== addressId);
-				dispatch(successfullyDeleteAddress(newAddresses));
-			})
-			.catch((err) => {
-				console.log(err.message);
-			});
 	};
 };
 
@@ -237,41 +218,25 @@ export const authSignOut = () => {
 	};
 };
 
-export const requestRefreshOrders = () => {
+export const updateAddress = (addresses, address) => {
+	const newAddresses = addresses.map((item) => {
+		if (item.id === address.id) {
+			item = address;
+		}
+
+		return item;
+	});
+
 	return {
-		type: REQUEST_REFRESH_ORDERS,
+		type: UPDATE_ADDRESS,
+		payload: newAddresses,
 	};
 };
 
-export const successRefreshOrders = (orders) => {
+export const refreshOrders = (orders) => {
 	return {
-		type: SUCCESS_REFRESH_ORDERS,
+		type: REFRESH_ORDERS,
 		payload: orders,
-	};
-};
-
-export const failedRefreshOrders = (error) => {
-	return {
-		type: FAILED_REFRESH_ORDERS,
-		payload: error,
-	};
-};
-
-export const refreshOrders = (token) => {
-	return (dispatch) => {
-		dispatch(requestRefreshOrders());
-		axios
-			.get(`${process.env.REACT_APP_SERVER_URL}/user/refresh-orders`, {
-				headers: {
-					Authorization: `Bearer ${token}`,
-				},
-			})
-			.then((res) => {
-				dispatch(successRefreshOrders(res.data));
-			})
-			.catch((err) => {
-				dispatch(failedRefreshOrders(err.message));
-			});
 	};
 };
 

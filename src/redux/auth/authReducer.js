@@ -12,12 +12,11 @@ import {
 	REQUEST_AUTH_REGISTER,
 	SUCCESS_AUTH_REGISTER,
 	FAILED_AUTH_REGISTER,
-	REQUEST_REFRESH_ORDERS,
-	SUCCESS_REFRESH_ORDERS,
-	FAILED_REFRESH_ORDERS,
+	REFRESH_ORDERS,
 	ADD_ORDER,
 	SUCCESS_GET_LOCATION,
 	FAILED_GET_LOCATION,
+	UPDATE_ADDRESS,
 } from "./actionTypes";
 
 const initialState = {
@@ -136,7 +135,16 @@ const AuthReducer = (state = initialState, action) => {
 				...state,
 				user: {
 					...state.user,
-					addresses: [...state.user.addresses, action.payload.address],
+					addresses: action.payload,
+				},
+			};
+		}
+		case UPDATE_ADDRESS: {
+			return {
+				...state,
+				user: {
+					...state.user,
+					addresses: action.payload,
 				},
 			};
 		}
@@ -149,13 +157,7 @@ const AuthReducer = (state = initialState, action) => {
 				},
 			};
 		}
-		case REQUEST_REFRESH_ORDERS: {
-			return {
-				...state,
-				loading: true,
-			};
-		}
-		case SUCCESS_REFRESH_ORDERS: {
+		case REFRESH_ORDERS: {
 			return {
 				...state,
 				loading: false,
@@ -163,13 +165,6 @@ const AuthReducer = (state = initialState, action) => {
 					...state.user,
 					orders: action.payload,
 				},
-			};
-		}
-		case FAILED_REFRESH_ORDERS: {
-			return {
-				...state,
-				loading: false,
-				error: action.payload,
 			};
 		}
 		case ADD_ORDER: {
