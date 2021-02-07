@@ -133,7 +133,7 @@ export const requestGetUser = () => {
 	};
 };
 
-export const successfullyGetUser = (user) => {
+export const successfulGetUser = (user) => {
 	return {
 		type: SUCCESSFULLY_GET_USER,
 		payload: user,
@@ -158,8 +158,7 @@ export const getUser = (token) => {
 				},
 			})
 			.then((res) => {
-				console.log(res.data);
-				dispatch(successfullyGetUser(res.data));
+				dispatch(successfulGetUser(res.data));
 			})
 			.catch((error) => {
 				const errorMsg = error.response.data.message;
@@ -268,7 +267,6 @@ export const refreshOrders = (token) => {
 				},
 			})
 			.then((res) => {
-				console.log(res.data);
 				dispatch(successRefreshOrders(res.data));
 			})
 			.catch((err) => {

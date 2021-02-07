@@ -30,7 +30,6 @@ const List = ({ items, addToCart, products, addFlashMessage }) => {
 
 	const handleAddToCart = () => {
 		try {
-			// throw new Error("asd");
 			addToCart(selectedItem, items);
 			addFlashMessage("Successfully added to cart!");
 			setModal(false);

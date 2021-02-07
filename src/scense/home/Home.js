@@ -12,14 +12,18 @@ import { addFlashMessage } from "../../redux/flash/actions";
 import introImage from "../../images/intro-image.jpg";
 import ProductList from "../../components/products/ProductList";
 
-const Home = ({ auth, popularProducts, getPopularProducts, getUserLocation, addFlashMessage, prevOrders }) => {
+const Home = ({ auth, popularProducts, getPopularProducts, getUserLocation, addFlashMessage, prevOrders, loading }) => {
 	const [location, setLocation] = useState(auth.location);
 
 	useEffect(() => {
 		if (popularProducts.length === 0) {
 			getPopularProducts();
 		}
-	}, []);
+
+		if (auth.error !== "") {
+			addFlashMessage(auth.error, "error");
+		}
+	}, [auth.error]);
 
 	useEffect(() => {
 		if (auth.location === "") {
@@ -27,11 +31,7 @@ const Home = ({ auth, popularProducts, getPopularProducts, getUserLocation, addF
 		} else {
 			setLocation(auth.location);
 		}
-
-		if (auth.error !== "") {
-			addFlashMessage(auth.error, "error");
-		}
-	}, [auth]);
+	}, [auth.location]);
 
 	const handleLocationChange = (e) => setLocation(e.target.value);
 
@@ -39,6 +39,17 @@ const Home = ({ auth, popularProducts, getPopularProducts, getUserLocation, addF
 		const result = new Date(date);
 		return result.toLocaleString("hu-HU", { dateStyle: "full" });
 	};
+
+	if (loading) {
+		return (
+			<div className="loading-screen">
+				<div className="content">
+					<div style={{ color: "#fff" }}>Wait a moment while we load your data.</div>
+					<div className="loading-dot">.</div>
+				</div>
+			</div>
+		);
+	}
 
 	return (
 		<div id="home">
@@ -185,6 +196,7 @@ const mapStateToProps = (state) => ({
 	popularProducts: state.product.popularProducts,
 	prevOrders: state.auth.user.orders ? state.auth.user.orders.slice(0, 4) : null,
 	auth: state.auth,
+	loading: state.shop.loading,
 });
 
 export default connect(mapStateToProps, { getPopularProducts, getUserLocation, addFlashMessage })(Home);

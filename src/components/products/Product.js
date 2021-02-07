@@ -11,9 +11,9 @@ const Product = ({ product }) => {
 			<div className="product mb-3">
 				<div className="product-image position-relative">
 					<img src={product.image} alt={product.name} />
-					<div className="add-to-wishlist">
+					{/* <div className="add-to-wishlist">
 						<FontAwesomeIcon icon={faHeart} />
-					</div>
+					</div> */}
 				</div>
 				<div className="product-content p-3">
 					<div className="d-flex align-items-start">

@@ -10,7 +10,7 @@ import { useParams } from "react-router-dom";
 import "./styles.scss";
 
 const Shop = (props) => {
-	const { fetchProducts, loading, currentShop } = props;
+	const { loading, currentShop } = props;
 	const contactInfo = currentShop === undefined ? null : JSON.parse(currentShop.contact_info);
 	const open = currentShop === undefined ? null : JSON.parse(currentShop.open_hours);
 
@@ -60,7 +60,9 @@ const Shop = (props) => {
 						<p className="mb-1 font-weight-light text-sm">Delivery ({currentShop.delivery_time}m)</p>
 						<p className="text-black-50 mb-0">
 							<span className="text-success font-weight-bold text-sm">
-								{currentShop.minimum_order == 0 ? "no minimum" : currentShop.minimum_order}
+								{currentShop.minimum_order == 0
+									? "no minimum"
+									: `$${currentShop.minimum_order} for minimum`}
 							</span>
 							, Free Delivery
 						</p>

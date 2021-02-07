@@ -24,6 +24,7 @@ const Item = React.memo(
 							</div>
 						</div>
 						<p className="mb-2 text-black-50">{item.cal} Cal.</p>
+						<div className="text-black-50">{item.description}</div>
 						<div className="d-flex flex-column flex-md-row justify-content-between align-items-center">
 							<p className="text-black-50 text-sm mb-0">{}</p>
 							<h5 className="font-weight-bold text-success mb-0 mt-3 mt-md-0">
