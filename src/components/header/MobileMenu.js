@@ -1,24 +1,36 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faHome, faShoppingBag, faUser, faShoppingCart } from "@fortawesome/free-solid-svg-icons";
+import { faHome, faShoppingBag, faUser, faShoppingCart, faStore } from "@fortawesome/free-solid-svg-icons";
+import { connect } from "react-redux";
 
-const MobileMenu = ({ openCart }) => {
+const MobileMenu = ({ openCart, auth }) => {
 	return (
 		<div className="mobile-menu pb-1 pt-2 px-2">
 			<div className="d-flex justify-content-between align-items-center">
-				<Link to="/" className="text-center active">
+				<NavLink exact to="/" activeClassName="active" className="text-center">
 					<FontAwesomeIcon icon={faHome} />
 					<div>Home</div>
-				</Link>
-				<Link to="/cart" className="text-center">
+				</NavLink>
+				<NavLink activeClassName="active" to="/shops" className="text-center">
+					<FontAwesomeIcon icon={faStore} />
+					<div>Shops</div>
+				</NavLink>
+				<NavLink to="/cart" activeClassName="active" className="text-center">
 					<FontAwesomeIcon icon={faShoppingBag} />
 					<div>Cart</div>
-				</Link>
-				<Link to="/profile" className="text-center">
-					<FontAwesomeIcon icon={faUser} />
-					<div>Profile</div>
-				</Link>
+				</NavLink>
+				{auth.isLoggedIn ? (
+					<NavLink activeClassName="active" to="/profile" className="text-center">
+						<FontAwesomeIcon icon={faUser} />
+						<div>Profile</div>
+					</NavLink>
+				) : (
+					<NavLink activeClassName="active" to="/signin" className="text-center">
+						<FontAwesomeIcon icon={faUser} />
+						<div>Sign in</div>
+					</NavLink>
+				)}
 			</div>
 
 			<div className="float-cart-icon" onClick={() => openCart(true)}>
@@ -28,4 +40,8 @@ const MobileMenu = ({ openCart }) => {
 	);
 };
 
-export default MobileMenu;
+const mapStateToProps = (state) => ({
+	auth: state.auth,
+});
+
+export default connect(mapStateToProps)(MobileMenu);
