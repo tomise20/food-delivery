@@ -8,17 +8,17 @@ const ShopListItem = ({ shop }) => {
 				<img src={shop.shop_image} className="mr-4" />
 				<div className="d-flex flex-column w-100">
 					<div className="d-flex flex-column flex-lg-row justify-content-between w-100">
-						<div className="shop-name">
+						<div className="shop-name mt-3 mt-lg-0">
 							<h6 className="mb-0 font-weight-bold">{shop.name}</h6>
 							<small className="shop-type">{shop.type}</small>
 						</div>
-						<div className="shop-raiting">
+						<div className="shop-raiting  mt-2 mt-lg-0">
 							<small>{shop.raitings} raitings</small>
 						</div>
-						<div className="shop-delivery text-center">
-							<small>{shop.delivery_time} min.</small>
+						<div className="shop-delivery text-left text-lg-right">
+							<small>delivery: {shop.delivery_time} min.</small>
 						</div>
-						<div className="shop-order text-right">
+						<div className="shop-order text-left text-lg-right">
 							${shop.minimum_order}
 							<br />
 							<small>Minimum</small>

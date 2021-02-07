@@ -1,4 +1,5 @@
 @import "../../styles/colors";
+@import "../../styles//variables";
 
 .profile {
 	.account-image {
@@ -35,6 +36,9 @@
 	.order-item {
 		width: 20%;
 		text-align: left;
+		@media screen and (max-width: $md-breakpoint) {
+			width: 100%;
+		}
 	}
 	.order-item.id {
 		width: 10%;

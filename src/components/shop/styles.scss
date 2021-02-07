@@ -92,28 +92,54 @@
 	}
 	.shop-name {
 		width: 30%;
+		@media screen and (max-width: $lg-breakpoint) {
+			width: 100%;
+		}
 	}
 	.shop-raiting {
 		width: 10%;
+		@media screen and (max-width: $lg-breakpoint) {
+			width: 100%;
+		}
 	}
 	.shop-delivery {
 		width: 20%;
+		@media screen and (max-width: $lg-breakpoint) {
+			width: 100%;
+		}
 	}
 	.shop-order {
 		width: 20%;
+		@media screen and (max-width: $lg-breakpoint) {
+			width: 100%;
+		}
 	}
 	.shop-desc {
 		font-size: 14px;
 		max-width: 90%;
+		@media screen and (max-width: $lg-breakpoint) {
+			width: 100%;
+		}
 	}
 	img {
 		width: 100px;
 		height: 100px;
 		object-fit: cover;
 		object-position: center;
+		@media screen and (max-width: $lg-breakpoint) {
+			width: 100%;
+			height: auto;
+			max-height: 200px;
+			object-fit: contain;
+			object-position: left top;
+		}
 	}
 	.shop-type {
-		max-width: 300px;
-		display: inline-block;
+		@media screen and (min-width: $lg-breakpoint) {
+			max-width: 300px;
+			display: inline-block;
+		}
+		display: block;
+		width: 100%;
 	}
 }
