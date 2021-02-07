@@ -1,9 +1,8 @@
 import React, { useState, useContext, useCallback, useEffect } from "react";
 import { Tooltip } from "reactstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faComment, faPaperPlane } from "@fortawesome/free-solid-svg-icons";
+import { faComment, faPaperPlane, faTimes } from "@fortawesome/free-solid-svg-icons";
 import { SocketContext } from "../../context/socket";
-import { v4 as uuid_v4 } from "uuid";
 
 import "./styles.scss";
 
@@ -79,6 +78,10 @@ const Chat = () => {
 		}
 	};
 
+	const onCloseChat = () => {
+		setOpenChat(false);
+	};
+
 	const toggle = () => setTooltipOpen(!tooltipOpen);
 	return (
 		<>
@@ -89,8 +92,9 @@ const Chat = () => {
 				Help desk chat
 			</Tooltip>
 			<div className={`chat ${openChat ? "active" : ""}`}>
-				<div className="chat-header p-2 font-weight-bold dark-color border-bottom">
-					Food Delivery Support Team
+				<div className="chat-header p-2 font-weight-bold dark-color border-bottom d-flex justify-content-between align-items-center">
+					<div>Food Delivery Support Team</div>
+					<FontAwesomeIcon icon={faTimes} size="1x" className="mr-1" onClick={onCloseChat} />
 				</div>
 				<div className="chat-body d-flex flex-column flex-column-reverse pt-3 px-2">
 					{messages.map((message, index) => (

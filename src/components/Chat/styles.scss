@@ -1,4 +1,5 @@
 @import "../../styles/colors";
+@import "../../styles/variables";
 
 .chat-icon {
 	width: 60px;
@@ -10,8 +11,12 @@
 	border-radius: 50%;
 	position: fixed;
 	right: 20px;
-	bottom: 50px;
+	bottom: 75px;
 	z-index: 10;
+	@media screen and (max-width: $lg-breakpoint) {
+		left: 20px;
+		right: unset;
+	}
 	&:hover {
 		cursor: pointer;
 	}
@@ -32,6 +37,9 @@
 	border-top-left-radius: 10px;
 	border-top-right-radius: 10px;
 	background-color: #fff;
+	@media screen and (max-width: $lg-breakpoint) {
+		right: 0;
+	}
 	.chat-header {
 		&:hover {
 			cursor: pointer;
@@ -92,4 +100,7 @@
 }
 .chat.active {
 	bottom: 0;
+	@media screen and (max-width: $lg-breakpoint) {
+		bottom: 60px;
+	}
 }
