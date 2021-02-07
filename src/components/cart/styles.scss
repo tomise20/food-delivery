@@ -32,11 +32,12 @@
 			flex-basis: 50px;
 		}
 		.delete {
-			&:hover {
-				path,
-				svg {
+			path,
+			svg {
+				color: #000;
+				&:hover {
 					transition: color 0.5s;
-					color: $red-color;
+					color: red;
 					cursor: pointer;
 				}
 			}

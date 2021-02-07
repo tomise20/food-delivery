@@ -56,7 +56,7 @@ const Header = (props) => {
 					<>
 						<hr className="mb-0" />
 						<div className="py-2 px-4">
-							<Link className="btn btn-success btn-sm btn-block" to="/cart">
+							<Link className="btn red-btn btn-sm btn-block" to="/cart">
 								Proceed to checkout
 							</Link>
 						</div>

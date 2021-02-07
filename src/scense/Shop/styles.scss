@@ -109,8 +109,8 @@
 		background-color: $red-color;
 		border-color: $red-color;
 		&:hover {
-			background-color: #c30012;
-			border-color: #c30012;
+			background-color: $red-hover-color;
+			border-color: $red-hover-color;
 		}
 	}
 }

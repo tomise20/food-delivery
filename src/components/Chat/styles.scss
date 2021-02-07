@@ -15,9 +15,9 @@
 	&:hover {
 		cursor: pointer;
 	}
-	.path,
+	path,
 	svg {
-		color: $red-color;
+		color: $red-color !important;
 	}
 }
 .chat {

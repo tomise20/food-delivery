@@ -1,11 +1,11 @@
 import React from "react";
 
-import "./styles.scss";
 import Item from "./Item";
 import { Link, useRouteMatch } from "react-router-dom";
 import { connect } from "react-redux";
 import { deleteItem } from "../../redux/cart/actions";
 import { addFlashMessage } from "../../redux/flash/actions";
+import "./styles.scss";
 
 const Cart = ({ deleteItem, addFlashMessage, total, items }) => {
 	var uri = useRouteMatch();
@@ -17,7 +17,7 @@ const Cart = ({ deleteItem, addFlashMessage, total, items }) => {
 
 	return (
 		<div className="cart">
-			<div className="title px-3 py-2 font-weight-bold">Your Order</div>
+			<div className="title px-3 py-1 font-weight-bold">Your Order</div>
 			<hr className="mt-0" />
 			<div className="order-list">
 				{items.length > 0 &&
@@ -62,7 +62,7 @@ const Cart = ({ deleteItem, addFlashMessage, total, items }) => {
 						<>
 							<hr className="mt-0" />
 							<div className="px-3 pb-3">
-								<Link to="/cart" className="cart-btn btn btn-block btn-success btn-sm">
+								<Link to="/cart" className="cart-btn btn btn-block red-btn btn-sm">
 									Proceed to checkout
 								</Link>
 							</div>
